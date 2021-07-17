@@ -2,23 +2,25 @@ body {
 	 -webkit-font-smoothing: antialiased;
 }
  .earth-demo {
-	 background: #000;
 	 position: absolute;
 	 top: 0;
 	 right: 0;
 	 bottom: 0;
 	 left: 0;
 	 overflow: hidden;
+	 z-index:3;
 }
 
  .earth {
+     --earth_size: 20vh;
 	 position: absolute;
-	 top: calc(50% - 100px);
-	 left: calc(50% - 100px);
+	 top: calc(50% - var(--earth_size) * 0.5);
+	 left: calc(50% - var(--earth_size) * 0.5);
+	 transform-origin: center;
 }
  .earth img {
-	 height: 200px;
-	 width: 200px;
+	 height: var(--earth_size);
+	 width: var(--earth_size);
 	 position: absolute;
 	 top: 0;
 	 left: 0;
@@ -26,47 +28,40 @@ body {
 
  .moon-container {
 	 position: absolute;
-	 top: calc(50% - 25px);
-	 left: calc(50% - 25px);
+	 top: calc(50%);
+	 left: calc(50%);
 }
  .moon {
-	 animation: spin 20s linear infinite;
+	 animation: spin 60s linear infinite;
 	 background: none;
-	 width: 50px;
-	 height: 50px;
+	 width: 2vh;
+	 height: 2vh;
 	 pointer-events: none;
 	 transform-origin: 25px;
 }
  .moon img {
-	 transform: translateX(-160px) translateY(-160px);
+	 transform: translateX(-35vh) translateY(-35vh);
 	 width: 50px;
 }
  .earth img, .moon img {
 	 border-radius: 50%;
 	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
 }
- .earth:hover img, .earth.active img {
-	 transform: translateX(-75px) translateY(-75px) scale(0.5);
-}
- .earth:hover ~ .moon-container, .earth.active ~ .moon-container {
-	 transform: translateX(-75px) translateY(-75px) scale(0.4);
-}
- .earth:hover ~ .moon-container img, .earth.active ~ .moon-container img {
-	 transform: translateX(-140px) translateY(-140px);
-}
- .earth:hover .more-info, .earth.active .more-info {
-	 opacity: 1;
-	 transform: scale(1);
-}
- .earth:hover .more-info h1, .earth.active .more-info h1, .earth:hover .more-info li, .earth.active .more-info li {
-	 opacity: 1;
-}
+
  * {
 	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
 }
+
+
+/* ################   animation  #################### */
  @keyframes spin {
 	 to {
 		 transform: rotateZ(360deg);
+	}
+}
+ @keyframes spin_slow {
+	 to {
+		 transform: rotateZ(-360deg);
 	}
 }
 @keyframes info {
@@ -77,42 +72,29 @@ body {
     transform: rotate(-360deg);
   }
 }
-
-.more-info
-{
-	 background-image: linear-gradient(to bottom, rgba(10, 10, 10, 1), black);
-	 border-radius: 1em;
-	 color: #fff;
-	 opacity: 0;
-	 padding: 1em;
-	 transform: scale(0.8);
-	 transform-origin: 0 0;
-	 width: 400px;
-}
-.more-info h1
-{
-	 margin: 0 0 1em;
-	 text-align: right;
-}
-.more-info h1, .more-info li
-{
-	 font-family: 'Space Mono', monospace;
-	 opacity: 0;
-}
+/*##################################################*/
 
 
-
-/* ##############   info box ################## */
+/* ################   info box #################### */
 .sat_info
 {
 	 background-image: linear-gradient(to bottom, rgba(10, 10, 10, 1), black);
 	 border-radius: 1em;
 	 color: #fff;
 	 opacity: 0;
-	 padding: 1em;
+
+	 padding-left:0.3em;
+	 padding-top:0.3em;
+	 padding-right:0.3em;
+
 	 transform: scale(0.8);
 	 transform-origin: 0 0;
-	 width: 400px;
+	 width: 320px;
+	 z-index: 5;
+	 position: absolute;
+	 left:10px;
+     top:10px;
+     transform-origin: top left;
 }
 .sat_info h1
 {
@@ -124,7 +106,7 @@ body {
 	 font-family: 'Space Mono', monospace;
 	 opacity: 0;
 }
-/* ############################################# */
+/* ############################################### */
 
 #sat_container
 {
@@ -134,37 +116,60 @@ body {
 }
 
 
-
+/* %%%%%%%%%%%%%%%%%%%%%%%%% NOAA18 %%%%%%%%%%%%%%%%%%%%%%%%% */
 #noaa18_container {
      --time: 50s;
+     --distance: -20vh;
 	 animation: spin var(--time) linear infinite;
 	 background: none;
 	 width: 50px;
 	 height: 50px;
 	 transform-origin: 25px;
 }
-
 #noaa18_info
 {
-    transform-origin: top left;
-    position: absolute;
     animation: info var(--time) infinite linear;
 }
-
+#noaa18 .info_back{
+	 animation: textColor 10s ease infinite, info var(--time) infinite linear;;
+	 border-radius: 1em;
+	 opacity:0;
+	 width: 320px;
+	 height: 140px;
+	 z-index: 5;
+	 left:10px;
+     top:10px;
+     transform-origin: top left;
+}
+#noaa18 .info_back:after {
+	 position: absolute;
+	 content: "";
+	 z-index: -1;
+	 height: 100%;
+	 width: 100%;
+	 margin: 0 auto;
+	 transform: scale(1);
+	 -webkit-filter: blur(5vw);
+	 -moz-filter: blur(5vw);
+	 -ms-filter: blur(5vw);
+	 filter: blur(5vw);
+	 background: linear-gradient(270deg, #0fffc1, #7e0fff);
+	 background-size: 200% 200%;
+	 animation: animateGlow 10s ease infinite;
+}
 #noaa18_container img
 {
      width: 50px;
 	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
+	 z-index:6;
+	 position: relative;
+	 transform-origin: center;
+	 transform: scale(1);
 }
-
-
 #noaa18
 {
-	 transform: translateX(-260px) translateY(-260px);
-	 z-index:5;
-	 position:relative;
+	 transform: translateX(var(--distance)) translateY(var(--distance));
 }
-
 #noaa18:hover #noaa18_info
 {
 	 opacity: 1 !important;
@@ -177,7 +182,76 @@ body {
 	 transform: initial;
 	 position: absolute;
 }
-
+#noaa18:hover .info_back
+{
+	 opacity: 1 !important;
+}
+#noaa18:active .info_back
+{
+     opacity: 1;
+}
+#noaa18:active #noaa18_img
+{
+     transform: scale(1.5);
+}
+#noaa18:hover #noaa18_img
+{
+	 transform: scale(1.5);
+}
 #noaa18:hover #noaa18_info h1, #noaa18:active #noaa18_info h1, #noaa18:hover #noaa18_info li, #noaa18:active #noaa18_info li {
 	 opacity: 1;
+}
+/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
+
+
+
+
+ .background-container
+ {
+     background: rgb(150,190,227);
+     background: radial-gradient(circle, rgba(150,190,227,1) 7%, rgba(129,174,215,1) 9%, rgba(89,118,144,1) 13%, rgba(64,83,102,1) 17%, rgba(47,60,73,1) 24%, rgba(32,42,52,1) 39%, rgba(23,29,36,1) 56%, rgba(7,10,11,1) 74%, rgba(0,0,0,1) 100%);
+     position: fixed;
+	 top: 0;
+	 left: 0;
+	 bottom: 0;
+	 right: 0;
+}
+ .stars
+ {
+     animation: spin_slow 500s linear infinite;
+	 position: absolute;
+	 top: 0;
+	 bottom: 0;
+	 left: 0;
+	 right: 0;
+	 display: block;
+	 z-index: 0;
+}
+
+
+
+
+
+
+ @keyframes animateGlow {
+	 0% {
+		 background-position: 0% 50%;
+	}
+	 50% {
+		 background-position: 100% 50%;
+	}
+	 100% {
+		 background-position: 0% 50%;
+	}
+}
+ @keyframes textColor {
+	 0% {
+		 color: #7e0fff;
+	}
+	 50% {
+		 color: #0fffc1;
+	}
+	 100% {
+		 color: #7e0fff;
+	}
 }

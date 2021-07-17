@@ -6,45 +6,37 @@
     <title>Title</title>
 </head>
 <body>
-
-<!--test-->
-
-<article class="earth-demo" style="background:url('static/images/stars.jpg') repeat center;background-size: cover;">
-    <div class="earth">
-        <div class="more-info">
-            <h1>Earth</h1>
-            <ul>
-                <li>Third planet from the Sun</li>
-                <li>Atmosphere: 21% oxygen</li>
-                <li>Liquid water on surface</li>
-                <li>Only planet that has life (that we know of)</li>
-            </ul>
+<div class="background-container">
+    <div class="earth-demo">
+        <div class="earth">
+            <img src="static/images/earth.png">
         </div>
-        <img src="static/images/earth.png">
-    </div>
-    <div id="sat_container">
-        <div id="noaa18_container">
-            <div id="noaa18">
-                <img class="sat_icon" id="noaa18_img" src="static/images/sat.png">
-                <div class="sat_info" id="noaa18_info">
-                    <h1>noaa18</h1>
-                    <ul>
-                        <li>Third planet from the Sun</li>
-                        <li>Atmosphere: 21% oxygen</li>
-                        <li>Liquid water on surface</li>
-                        <li>Only planet that has life (that we know of)</li>
-                    </ul>
+        <div id="sat_container">
+            <div id="noaa18_container">
+                <div id="noaa18">
+                    <img class="sat_icon" id="noaa18_img" src="static/images/sat.png">
+                    <div class="info_back"></div>
+                    <div class="sat_info" id="noaa18_info">
+                        <h1>NOAA18</h1>
+                        <ul>
+                            <li>Launch: 20 May 2005</li>
+                            <li>Transimssion type: APT</li>
+                            <li>Frequnecy: 137.9125 MHz</li>
+                            <li>Altitude: 854 km</li>
+                            <li>Orbit: Sunsynchronous orbit</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="moon-container">
-        <div class="moon">
-            <img src="static/images/moon.png">
+        <div class="moon-container">
+            <div class="moon">
+                <img src="static/images/moon.png">
+            </div>
         </div>
     </div>
-</article>
-
-
+    <div class="stars" style="background: url('static/images/stars.png') repeat;"></div>
+    <div class="twinkling"></div>
+</div>
 </body>
 </html>
