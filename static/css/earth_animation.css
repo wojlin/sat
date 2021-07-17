@@ -11,7 +11,7 @@ body {
 	 overflow: hidden;
 }
  .earth-demo:before {
-	 background: url(https://cssanimation.rocks/images/random/space2.jpg) repeat center;
+	 background: url('/static/images/stars.jpg') repeat center;
 	 background-size: cover;
 	 content: "";
 	 opacity: 0.5;
@@ -33,24 +33,7 @@ body {
 	 top: 0;
 	 left: 0;
 }
- .earth .more-info {
-	 background-image: linear-gradient(to bottom, rgba(10, 10, 10, 1), black);
-	 border-radius: 1em;
-	 color: #fff;
-	 opacity: 0;
-	 padding: 1em;
-	 transform: scale(0.8);
-	 transform-origin: 0 0;
-	 width: 400px;
-}
- .earth .more-info h1 {
-	 margin: 0 0 1em;
-	 text-align: right;
-}
- .earth .more-info h1, .earth .more-info li {
-	 font-family: 'Space Mono', monospace;
-	 opacity: 0;
-}
+
  .moon-container {
 	 position: absolute;
 	 top: calc(50% - 25px);
@@ -95,4 +78,116 @@ body {
 	 to {
 		 transform: rotateZ(360deg);
 	}
+}
+@keyframes info {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.more-info
+{
+	 background-image: linear-gradient(to bottom, rgba(10, 10, 10, 1), black);
+	 border-radius: 1em;
+	 color: #fff;
+	 opacity: 0;
+	 padding: 1em;
+	 transform: scale(0.8);
+	 transform-origin: 0 0;
+	 width: 400px;
+}
+.more-info h1
+{
+	 margin: 0 0 1em;
+	 text-align: right;
+}
+.more-info h1, .more-info li
+{
+	 font-family: 'Space Mono', monospace;
+	 opacity: 0;
+}
+
+
+
+/* ##############   info box ################## */
+.sat_info
+{
+	 background-image: linear-gradient(to bottom, rgba(10, 10, 10, 1), black);
+	 border-radius: 1em;
+	 color: #fff;
+	 opacity: 0;
+	 padding: 1em;
+	 transform: scale(0.8);
+	 transform-origin: 0 0;
+	 width: 400px;
+}
+.sat_info h1
+{
+	 margin: 0 0 1em;
+	 text-align: right;
+}
+.sat_info h1, .sat_info li
+{
+	 font-family: 'Space Mono', monospace;
+	 opacity: 0;
+}
+/* ############################################# */
+
+#sat_container
+{
+	 position: absolute;
+	 top: calc(50% - 25px);
+	 left: calc(50% - 25px);
+}
+
+
+
+#noaa18_container {
+     --time: 50s;
+	 animation: spin var(--time) linear infinite;
+	 background: none;
+	 width: 50px;
+	 height: 50px;
+	 transform-origin: 25px;
+}
+
+#noaa18_info
+{
+    transform-origin: top left;
+    position: absolute;
+    animation: info var(--time) infinite linear;
+}
+
+#noaa18_container img
+{
+     width: 50px;
+	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
+}
+
+
+#noaa18
+{
+	 transform: translateX(-260px) translateY(-260px);
+	 z-index:5;
+	 position:relative;
+}
+
+#noaa18:hover #noaa18_info
+{
+	 opacity: 1 !important;
+	 transform: initial;
+	 position: absolute;
+}
+#noaa18:active #noaa18_info
+{
+     opacity: 1;
+	 transform: initial;
+	 position: absolute;
+}
+
+#noaa18:hover #noaa18_info h1, #noaa18:active #noaa18_info h1, #noaa18:hover #noaa18_info li, #noaa18:active #noaa18_info li {
+	 opacity: 1;
 }
