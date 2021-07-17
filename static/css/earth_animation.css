@@ -11,6 +11,7 @@ body {
 	 overflow: hidden;
 }
  .earth-demo:before {
+	 background: url('/static/images/stars.jpg') repeat center;
 	 background-size: cover;
 	 content: "";
 	 opacity: 0.5;
