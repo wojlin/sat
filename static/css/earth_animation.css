@@ -10,17 +10,7 @@ body {
 	 left: 0;
 	 overflow: hidden;
 }
- .earth-demo:before {
-	 background: url('/static/images/stars.jpg') repeat center;
-	 background-size: cover;
-	 content: "";
-	 opacity: 0.5;
-	 position: absolute;
-	 left: 0;
-	 right: 0;
-	 top: 0;
-	 bottom: 0;
-}
+
  .earth {
 	 position: absolute;
 	 top: calc(50% - 100px);
