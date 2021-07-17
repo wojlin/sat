@@ -1,14 +1,12 @@
-body {
-	 -webkit-font-smoothing: antialiased;
-}
- .earth-demo {
-	 position: absolute;
-	 top: 0;
-	 right: 0;
-	 bottom: 0;
-	 left: 0;
-	 overflow: hidden;
-	 z-index:3;
+.earth_cont
+{
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+overflow: hidden;
+z-index:3;
 }
 
  .earth {
@@ -43,10 +41,15 @@ body {
 	 transform: translateX(-35vh) translateY(-35vh);
 	 width: 50px;
 }
- .earth img, .moon img {
+ .earth img{
 	 border-radius: 50%;
-	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
+	 box-shadow: 0 0 6em 1em rgba(110, 140, 200, .6);
 }
+ .moon img
+ {
+     border-radius: 50%;
+	 box-shadow: 0 0 2em 0.2em rgba(250, 250, 200, .6);
+ }
 
  * {
 	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
@@ -210,11 +213,6 @@ body {
  {
      background: rgb(150,190,227);
      background: radial-gradient(circle, rgba(150,190,227,1) 7%, rgba(129,174,215,1) 9%, rgba(89,118,144,1) 13%, rgba(64,83,102,1) 17%, rgba(47,60,73,1) 24%, rgba(32,42,52,1) 39%, rgba(23,29,36,1) 56%, rgba(7,10,11,1) 74%, rgba(0,0,0,1) 100%);
-     position: fixed;
-	 top: 0;
-	 left: 0;
-	 bottom: 0;
-	 right: 0;
 }
  .stars
  {

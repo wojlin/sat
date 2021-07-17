@@ -1,42 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <title>sat</title>
+    <link href="static/css/styles.css" rel="stylesheet"/>
     <link rel="stylesheet" href="static/css/earth_animation.css">
-    <link href="{{ '/sat' | relative_url }}" rel="stylesheet">
-    <title>Title</title>
 </head>
+
 <body>
-<div class="background-container">
-    <div class="earth-demo">
-        <div class="earth">
-            <img src="static/images/earth.png">
-        </div>
-        <div id="sat_container">
-            <div id="noaa18_container">
-                <div id="noaa18">
-                    <img class="sat_icon" id="noaa18_img" src="static/images/sat.png">
-                    <div class="info_back"></div>
-                    <div class="sat_info" id="noaa18_info">
-                        <h1>NOAA18</h1>
-                        <ul>
-                            <li>Launch: 20 May 2005</li>
-                            <li>Transimssion type: APT</li>
-                            <li>Frequnecy: 137.9125 MHz</li>
-                            <li>Altitude: 854 km</li>
-                            <li>Orbit: Sunsynchronous orbit</li>
-                        </ul>
+<div id="page_container">
+
+    <div id="page_left_side">
+        <div class="background-container">
+            <div class="earth_cont">
+                <div class="earth">
+                    <img src="static/images/earth.png">
+                </div>
+                <div id="sat_container">
+                    <div id="noaa18_container">
+                        <div id="noaa18">
+                            <img class="sat_icon" id="noaa18_img" src="static/images/sat.png">
+                            <div class="info_back"></div>
+                            <div class="sat_info" id="noaa18_info">
+                                <h1>NOAA18</h1>
+                                <ul>
+                                    <li>Launch: 20 May 2005</li>
+                                    <li>Transimssion type: APT</li>
+                                    <li>Frequnecy: 137.9125 MHz</li>
+                                    <li>Altitude: 854 km</li>
+                                    <li>Orbit: Sunsynchronous orbit</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="moon-container">
+                    <div class="moon">
+                        <img src="static/images/moon.png">
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="moon-container">
-            <div class="moon">
-                <img src="static/images/moon.png">
-            </div>
+            <div class="stars" style="background: url('static/images/stars.png') repeat;"></div>
         </div>
     </div>
-    <div class="stars" style="background: url('static/images/stars.png') repeat;"></div>
+
+
+    <div id="page_diagonal_container">
+        <div id="background_content">
+
+        </div>
+        <div id="diagonal_content">
+            <div id="menu">
+                <div>
+                    <a class="menu_button" href="#">Home</a>
+                    <a class="menu_button" href="#">Program</a>
+                    <a class="menu_button" href="#">Images</a>
+                    <a class="menu_button" href="#">Contact</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 </body>
 </html>
