@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='index/css/index.css') }}">
+    </head>
+    <body>
+
+        <div class="menu">
+            <h3>Boards</h3>
+            <div class="separator">
+            <p class="collapse_text">satellite</p><button class="collapse_button" id="satellite" type="button" onclick="collapse('satellite_container','satellite')">-</button>
+            </div>
+            <div id="satellite_container" class="collapsable" style="display:block;">
+                <a href="/sfr">/sfr/ flyby radar</a>
+                <a href="/ssm">/ssm/ static map</a>
+                <a href="#leaflet_map">/slm/ leaflet map</a>
+                <a href="#webglearth">/sgl/ webglearth map</a>
+            </div>
+            <div class="separator">
+                <p class="collapse_text">other</p><button class="collapse_button" id="other" type="button" onclick="collapse('other_container','other')">-</button>
+            </div>
+            <div id="other_container" class="collapsable" style="display:block;">
+                <a href="#o">/o/ other</a>
+                <a href="#o">/o/ other</a>
+                <a href="#o">/o/ other</a>
+            </div>
+        </div>
+
+        <script>
+            function collapse(name, name1)
+            {
+                var content = document.getElementById(name);
+                var mark = document.getElementById(name1);
+                if (content.style.display != "block") {
+                  content.style.display = "block";
+                  mark.innerHTML = "-";
+                } else
+                {
+                  content.style.display = "none";
+                  mark.innerHTML = "+";
+                }
+            }
+        </script>
+
+        <div class="page">
+          <h2>Sidebar Dropdown</h2>
+          <p>Click on the dropdown button to open the dropdown menu inside the side navigation.</p>
+          <p>This sidebar is of full height (100%) and always shown.</p>
+          <p>Some random text..</p>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,97 @@
+body {
+  font-family: sans-serif;
+  font-size: 9hw;
+  color: #800;
+  background-image: url("/static/index/images/fade.png"),url("/static/index/images/kara.png");
+  background-repeat: repeat-x,no-repeat;
+  background-attachment: fixed,fixed;
+  background-position: top,right bottom;
+
+}
+
+h3
+{
+    margin-left: 0.3vw;
+}
+
+/* Fixed sidenav, full height */
+.menu {
+  height: 100%;
+  width: 10vw;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  border-right: 1px solid #800;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.menu a{
+  padding: 0px 0px 0px 8px;
+  text-decoration: none;
+  font-size: 1.6vh;
+  color: #800;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  line-height: 110%;
+  margin:0;
+  font-weight: 400;
+}
+
+/* On mouse-over */
+.menu a:hover, .dropdown-btn:hover {
+  color: #ff0000;
+  text-decoration: underline;
+}
+
+/* Main content */
+.page {
+  margin-left: 10vw; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+
+.separator
+{
+    background-color: #FCA;
+    width:100%;
+    border-top: 1px solid #d8a787;
+    border-bottom: 1px solid #d8a787;
+}
+
+.collapse_text
+{
+    padding-left: 0.3vw;
+    font-size: 1.8vh;
+    display: inline;
+}
+
+.collapse_button
+{
+    float: right;
+    background-color:#eb9;
+    border: 1px solid #d8a787;
+    font-size: 1.3vh;
+    width: 1vw;
+    margin:1px;
+}
+
+
+
+.collapsable
+{
+    display:block;
+    padding-top: 0.7vh;
+    padding-bottom: 0.7vh;
+}
+
+
+

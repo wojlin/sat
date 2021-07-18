@@ -1,0 +1,143 @@
+body
+{
+    overflow-y:hidden !important;
+}
+
+#double_container
+{
+    width: 100%;
+}
+
+#left
+{
+    width:40%;
+    float:left;
+    display:inline;
+}
+
+#right
+{
+    width:40%;
+    float: right;
+    display:inline;
+}
+
+.box_container
+{
+    border: solid 1px var(--text);
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top:3vh;
+    background-color:#f0e0d6;
+    height: 70vh;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+
+
+.table-wrapper{
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    border: solid 1px var(--text) !important;
+    height:54vh;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.fl-table {
+
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+    border-top: solid 1px var(--text) !important;
+    border-bottom: solid 1px var(--text) !important;
+}
+
+.fl-table td {
+    border-right: 1px solid var(--text);
+    font-size: 12px;
+
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background: #c26e61;
+
+}
+
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #d6a785;
+}
+
+.fl-table tr:nth-child(even) {
+    background-color: #e0d6d3;
+}
+
+#left_top
+{
+    width:100%;
+    margin-bottom:1vh;
+}
+
+#sat_choose
+{
+    display:inline;
+    float:left;
+    width: 40%;
+}
+
+#angle, #ahead
+{
+    width:15% !important;
+}
+
+#angle_choose
+{
+    float:right;
+    width: 55%;
+    display:inline;
+}
+
+
+.slide-wrap {
+    margin:0 auto;
+    overflow: auto;
+    border: solid 1px var(--text) !important;
+    margin-bottom:1vh;
+    height:5vh;
+}
+.inner-wrap {
+    float:left;
+    margin-right:-30000px;/*Be safe with Opera's limited negative margin of 32695px     (-999em could cause problems with large font sizes)*/
+    padding-left:20px;
+    width: auto;
+}
+
+div.horizontal-fields input,
+div.horizontal-fields textarea,
+div.horizontal-fields select,
+div.horizontal-fields label {
+    width: auto;
+}
+
+/* Horizontal fields is the class which is not re-sizing it's with correctly */
+.horizontal-fields {
+    display: block;
+}
+
+.service-additional-fields {
+    display:inline-block;
+}

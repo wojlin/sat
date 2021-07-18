@@ -1,0 +1,197 @@
+h2
+{
+    font-size: 1.7vh;
+    display:inline;
+    margin-left: 10px;
+}
+
+
+#grid
+{
+    width: 80%;
+    margin:auto;
+    margin-top:1vh !important;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.satellite_container
+{
+    border: solid 1px var(--text);
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top:3vh;
+    background-color:#f0e0d6;
+}
+
+.satellite_hr
+{
+    margin-top:0;
+    margin-bottom: 10px;
+}
+
+
+/* Style the form - display items horizontally */
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  margin-bottom:0;
+}
+
+/* Add some margins for each label */
+.form-inline label {
+  margin-left:10px;
+  font-size: 1.3vh !important;
+}
+
+/* Style the input fields */
+.form-inline input {
+  vertical-align: middle;
+  padding: 0.5vh;
+  background-color: #fff;
+}
+
+
+/* Style the submit button */
+.form-inline button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  color: white;
+}
+
+.form-inline button:hover {
+  background-color: royalblue;
+}
+
+.form_label
+{
+    font-size: 3vh;
+}
+
+.inline
+{
+    border: solid 1px var(--text) !important;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin-left: 5px;
+    height: 1.3vh;
+}
+
+.number
+{
+    width:6%;
+    height: 0.7vh;
+}
+
+#form_after_time
+{
+    width:7% !important;
+}
+
+
+
+.satellite_image_container
+{
+    width:90%;
+    margin:auto;
+}
+
+.satellite_image_container img
+{
+    width:100%;
+}
+
+#submit
+{
+   width:20%;
+  float: right;
+  clear: both;
+  font-size: 1.5vh !important;
+  padding-bottom:0;
+  padding-top:0;
+  height: 2vh !important;
+
+}
+
+#submit:hover
+{
+  cursor: pointer;
+  color: #ff0000;
+  background-color:#dedede;
+  text-decoration: underline;
+}
+
+
+
+
+.satellite_image_container
+{
+    position: relative;
+    justify-content: center;
+    text-align:center;
+    vertical-align: middle;
+
+}
+
+.loading
+{
+    width:50px !important;
+    position:absolute;
+    display: block;
+    margin:auto;
+    z-index:2;
+    -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display:none;
+}
+
+.cover
+{
+    margin: 0;
+    background-color:#808080;
+    opacity: 0.7;
+    position:absolute;
+    height:99%;
+    width:100%;
+    z-index:3;
+    display:none;
+
+}
+
+
+.tool
+{
+    font-size:0.9vh;
+    text-align: justify;
+  text-justify: inter-word;
+  margin:0;
+  margin-left: 5px;
+  padding:0;
+}
+
+#auto_update
+{
+    border: solid 1px var(--text);
+    width:15%;
+    margin:auto;
+    margin-top:20px;
+    background-color:#f0e0d6;
+}
+
+#form_auto_update_time
+{
+    width: 15% !important;
+}
+
+#auto_info
+{
+
+    margin:auto;
+    font-size: 1.4vh;
+    text-align:center;
+    margin-bottom:5px;
+}
