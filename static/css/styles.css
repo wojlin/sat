@@ -6,7 +6,7 @@ body
     overflow: hidden;
     margin:0;
     color: white;
-    background-color: #2C353C;
+    background-color: rgb(5,5,6);
 }
 
 
@@ -14,34 +14,34 @@ body
 #page_container
 {
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
 #page_diagonal_container
 {
-    width: 50%;
-    height: 100%;
+    width: 60%;
+    height: 100vh;
     display:block;
     float:right;
+    position: relative;
+     display: flex;
 }
 #diagonal_content
 {
-    width:40%;
     height: 100vh;
-    display:inline-block;
-    position:absolute;
-    right:0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(20,20,20,0.8);
+
+      width: 80%;
+    float: left;
 }
 #background_content
 {
-    border-right: 230px solid rgba(0,0,0,0.5);
+    border-right: 230px solid rgba(20,20,20,0.8);
     border-top: 100vh solid transparent;
-    width:20%;
-    right:40%;
-    position:absolute;
     height: 100vh;
-    display:inline-block;
+    z-index:1;
+      width: 20%;
+    float: left;
 }
 
 
@@ -55,6 +55,7 @@ body
 	bottom: 0;
 	left: 0;
 	right: 0;
+	padding:0;
 }
 
 
@@ -66,6 +67,10 @@ body
     margin-left:10%;
 }
 
+.active
+{
+    border-bottom: 2px solid white;
+}
 
 .menu_button{
 	text-decoration: none;
@@ -106,8 +111,77 @@ body
 
 
 
+#content p
+{
+    font-size:2vh;
+    margin-left:10%;
+    margin-right:10%;
+}
+
+
+.numered_list {
+  counter-reset: index;
+  padding: 0;
+  width:80%;
+  position: relative;
+}
+
+.numered_list li {
+  counter-increment: index;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  width:100%;
+  box-sizing: border-box;
+}
+
+
+.numered_list li::before {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.5rem;
+  text-align: right;
+  font-weight: bold;
+  padding-right: 12px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  align-self: flex-start;
+  background-image: linear-gradient(to bottom,  rgba(135,206,255,1), rgba(61,19,111,1));
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.numered_list li + li {
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
 
 
 
 
 
+
+.underline{
+  position: relative;
+  text-decoration: none;
+  color: #0074D9;
+}
+
+.underline::before{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background-color: #0074D9;
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .underline:hover::before{
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
+}

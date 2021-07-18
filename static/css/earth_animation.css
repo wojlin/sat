@@ -6,7 +6,7 @@ right: 0;
 bottom: 0;
 left: 0;
 overflow: hidden;
-z-index:3;
+z-index:2;
 }
 
  .earth {
@@ -23,7 +23,13 @@ z-index:3;
 	 top: 0;
 	 left: 0;
 }
-
+.background-container-desc
+{
+    margin-left:5%;
+    font-size:3vh;
+    color: rgba(255,255,255,0.2);
+    background:none;
+}
  .moon-container {
 	 position: absolute;
 	 top: calc(50%);
@@ -40,6 +46,8 @@ z-index:3;
  .moon img {
 	 transform: translateX(-35vh) translateY(-35vh);
 	 width: 50px;
+	 z-index:1;
+	 position: relative;
 }
  .earth img{
 	 border-radius: 50%;
@@ -51,9 +59,6 @@ z-index:3;
 	 box-shadow: 0 0 2em 0.2em rgba(250, 250, 200, .6);
  }
 
- * {
-	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
-}
 
 
 /* ################   animation  #################### */
@@ -98,6 +103,7 @@ z-index:3;
 	 left:10px;
      top:10px;
      transform-origin: top left;
+     transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
 }
 .sat_info h1
 {
@@ -116,6 +122,7 @@ z-index:3;
 	 position: absolute;
 	 top: calc(50% - 25px);
 	 left: calc(50% - 25px);
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
 }
 
 
@@ -159,6 +166,7 @@ z-index:3;
 	 background: linear-gradient(270deg, #0fffc1, #7e0fff);
 	 background-size: 200% 200%;
 	 animation: animateGlow 10s ease infinite;
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
 }
 #noaa18_container img
 {
@@ -168,10 +176,14 @@ z-index:3;
 	 position: relative;
 	 transform-origin: center;
 	 transform: scale(1);
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
 }
 #noaa18
 {
 	 transform: translateX(var(--distance)) translateY(var(--distance));
+	 z-index:10 !important;
+	 position: relative;
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
 }
 #noaa18:hover #noaa18_info
 {
@@ -211,8 +223,14 @@ z-index:3;
 
  .background-container
  {
-     background: rgb(150,190,227);
-     background: radial-gradient(circle, rgba(150,190,227,1) 7%, rgba(129,174,215,1) 9%, rgba(89,118,144,1) 13%, rgba(64,83,102,1) 17%, rgba(47,60,73,1) 24%, rgba(32,42,52,1) 39%, rgba(23,29,36,1) 56%, rgba(7,10,11,1) 74%, rgba(0,0,0,1) 100%);
+    top:0;
+    position: absolute;
+    margin:0;
+    width:100%;
+    height:100vh;
+    background: rgb(150,190,227);
+    background: radial-gradient(circle, rgba(150,190,227,1) 7%, rgba(129,174,215,1) 9%, rgba(89,118,144,1) 13%, rgba(64,83,102,1) 17%, rgba(47,60,73,1) 24%, rgba(32,42,52,1) 39%, rgba(23,29,36,1) 56%, rgba(7,10,11,1) 74%, rgba(0,0,0,1) 100%);
+
 }
  .stars
  {
@@ -223,7 +241,7 @@ z-index:3;
 	 left: 0;
 	 right: 0;
 	 display: block;
-	 z-index: 0;
+	 z-index: 1;
 }
 
 
