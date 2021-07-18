@@ -31,7 +31,7 @@ background: linear-gradient(90deg, rgba(15,21,23,1) 0%, rgba(0,0,0,1) 100%);
 #diagonal_content
 {
     height: 100vh;
-    background-color: rgba(20,20,20,0.8);
+    background-color: rgba(20,20,20,0.9);
 
     width: 40%;
     position:absolute;
@@ -41,7 +41,7 @@ background: linear-gradient(90deg, rgba(15,21,23,1) 0%, rgba(0,0,0,1) 100%);
 
 #background_content
 {
-    border-right: 230px solid rgba(20,20,20,0.8);
+    border-right: 230px solid rgba(20,20,20,0.9);
     border-top: 100vh solid transparent;
     height: 100vh;
     z-index:1;

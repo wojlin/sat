@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <title>sat</title>
     <link href="static/css/styles.css" rel="stylesheet"/>
+    <link href="static/css/gallery.css" rel="stylesheet"/>
     <link rel="stylesheet" href="static/css/earth_animation.css">
+    <script src="static/js/jquery-3.6.0.min.js"></script>
     <style>
         @font-face
         {
@@ -17,159 +19,165 @@
             font-family: "jet";
             src: url("static/fonts/JetBrainsMono-Regular.ttf");
         }
+
+
+
+
+
+
     </style>
 </head>
 
 <body>
+
 <div id="page_container">
 
 
     <div id="page_diagonal_container">
 
-        <div class="background-container">
-            <div id="planet">
-                <div class="earth_cont">
-                    <div class="earth">
-                        <img src="static/images/earth.png">
-                    </div>
-                    <div id="sat_container">
-
-
-
-                        <div id="noaa19_container">
-                            <div id="noaa19">
-                                <img class="sat_icon" id="noaa19_img" src="static/images/sat.png">
-                                <div class="info_back"></div>
-                                <div class="sat_info" id="noaa19_info">
-                                    <h1>NOAA19</h1>
-                                    <ul>
-                                        <li>Launch: 06 Feb 2009  </li>
-                                        <li>Transimssion type: APT</li>
-                                        <li>Frequnecy: 137.9125 MHz MHz</li>
-                                        <li>Altitude: 870 km</li>
-                                        <li>Orbit: Sunsynchronous orbit</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="noaa18_container">
-                            <div id="noaa18">
-                                <img class="sat_icon" id="noaa18_img" src="static/images/sat.png">
-                                <div class="info_back"></div>
-                                <div class="sat_info" id="noaa18_info">
-                                    <h1>NOAA18</h1>
-                                    <ul>
-                                        <li>Launch: 20 May 2005</li>
-                                        <li>Transimssion type: APT</li>
-                                        <li>Frequnecy: 137.9125 MHz</li>
-                                        <li>Altitude: 854 km</li>
-                                        <li>Orbit: Sunsynchronous orbit</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-
-                         <div id="meteor_container">
-                            <div id="meteor">
-                                <img class="sat_icon" id="meteor_img" src="static/images/meteor.png">
-                                <div class="info_back"></div>
-                                <div class="sat_info" id="meteor_info">
-                                    <h1>METEOR_M N2</h1>
-                                    <ul>
-                                        <li>Launch: 08 Jul 2014   </li>
-                                        <li>Transimssion type: LRPT</li>
-                                        <li>Frequnecy: 137.1  MHz</li>
-                                        <li>Altitude: 870 km</li>
-                                        <li>Orbit: Sunsynchronous orbit</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="noaa15_container">
-                            <div id="noaa15">
-                                <img class="sat_icon" id="noaa15_img" src="static/images/sat.png">
-                                <div class="info_back"></div>
-                                <div class="sat_info" id="noaa15_info">
-                                    <h1>NOAA15</h1>
-                                    <ul>
-                                        <li>Launch: 13 May 1998 </li>
-                                        <li>Transimssion type: APT</li>
-                                        <li>Frequnecy: 137.6 MHz</li>
-                                        <li>Altitude: 813 km</li>
-                                        <li>Orbit: Sunsynchronous orbit</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-
-                    <div class="moon-container">
-                        <div class="moon">
-                            <img src="static/images/moon.png">
-                        </div>
-                    </div>
-                </div>
-                <div class="stars" style="background: url('static/images/stars.png');"></div>
+        <div id="gallery">
+            <div id="gallery_click">
+                <div class="gallery_arrow" onclick="plusDivs(-1)"><img style="width:100%;" src="static/images/left.png"
+                                                                       alt="arrow"></div>
+                <div id="gallery_dots"></div>
+                <div class="gallery_arrow" onclick="plusDivs(1)"><img style="width:100%;" src="static/images/right.png"
+                                                                      alt="arrow"></div>
             </div>
-            <p class="background-container-desc">hover over satellites to see description</p>
-            <div id="background"></div>
         </div>
 
-        <div id="background_content">
 
+        <script>
+            var folder = "static/images/sat/";
+            var count = 1;
+            var slideIndex = 0;
+
+            $.ajax({
+                url : folder,
+                success: function (data) {
+                    $(data).find("a").attr("href", function (i, val) {
+                        if( val.match(/\.(jpe?g|png|gif)$/) ) {
+                            $("#gallery").append( "<img loading=lazy style='width:100%' class='gallery_slide' src='"+ folder + val +"'>" );
+                            $("#gallery_dots").append("<span class='gallery_dot' onclick='currentDiv("+count+")'></span>");
+                            count += 1;
+                            showDivs(slideIndex);
+                        }
+                    });
+                }
+            });
+
+
+
+
+
+            function plusDivs(n) {
+              slideIndex = slideIndex + n;
+              showDivs(slideIndex);
+            }
+
+            function currentDiv(n) {
+              slideIndex = n;
+              showDivs(slideIndex);
+            }
+
+            function showDivs(n) {
+              var i;
+              const x = document.getElementsByClassName("gallery_slide");
+              var dots = document.getElementsByClassName("gallery_dot");
+              if (n > x.length) {slideIndex = 1}
+              if (n < 1) {slideIndex = x.length}
+              for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+                x[i].style.opacity = "0";
+              }
+              for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace("gallery_dot_active", "");
+              }
+              x[slideIndex-1].style.display = "block";
+              x[slideIndex-1].style.opacity = "1";
+              dots[slideIndex-1].className += " gallery_dot_active";
+            }
+
+
+            setInterval(carousel, 15000);
+
+            function carousel() {
+             slideIndex+=1;
+              showDivs(slideIndex);
+            }
+
+
+
+
+        </script>
+    </div>
+
+
+    <div id="background_content"></div>
+
+    <div id="diagonal_content">
+        <div id="menu">
+            <div>
+                <a class="menu_button" href="/index.html">Home</a>
+                <a class="menu_button" href="/program.html">Program</a>
+                <a class="menu_button active" href="/images.html">Images</a>
+                <a class="menu_button" href="/contact.html">Contact</a>
+            </div>
         </div>
-        <div id="diagonal_content">
-            <div id="menu">
-                <div>
-                    <a class="menu_button active" href="#">Home</a>
-                    <a class="menu_button" href="#">Program</a>
-                    <a class="menu_button" href="#">Images</a>
-                    <a class="menu_button" href="#">Contact</a>
-                </div>
-            </div>
-            <div id="content">
-                <h1 style="text-align:center;">
-                    <span style="color:#ffbaba">A</span>.
-                    <span style="color:#ffe7ba">S</span>.
-                    <span style="color:#baefff">I</span>.
-                    <span style="color:#cdbaff">R</span>
-                </h1>
-                <h1 style="margin-left:10%;">
-                    <span style="color:#ffbaba">Amateur</span>
-                    <span style="color:#ffe7ba">Satellite</span>
-                    <span style="color:#baefff">Image </span>
-                    <span style="color:#cdbaff">Reception</span>
-                </h1>
-                <hr style="margin-right:10%;margin-left:5%;color: rgba(170,170,170,0.2);">
-                <p>My hobby is repelling pictures from weather satellites</p>
-                <p>Receiving such images is not the easiest thing to do</p>
-                <p>I decided to write a program that would facilitate this task</p>
-                <p>The main goals of the program are:</p>
-                <ul class="numered_list" style="margin-left:10%;margin-right:10%;">
-                    <li>determining the current position of the satellites</li>
-                    <li>prediction of the next crossings over the horizon</li>
-                    <li>drawing a map with the flight trajectory</li>
-                    <li>communicating with sdr in order to receive iq samples</li>
-                    <li>signal demodulation and conversion</li>
-                    <li>automatic placement of decoded images in appropriate places with appropriate tags</li>
-                    <li>100% offline so it can be used anywhere in the world!</li>
-                </ul>
-                <p>Read more about weather satellites here:</p>
-                <ul style="margin-left:10%;">
-                    <li> <a href="https://www.noaa.gov/"  target="_blank" class="underline">NOAA gov site</a></li>
-                    <li><a href="https://www.rtl-sdr.com/" target="_blank" class="underline">RTL SDR page</a></li>
-                    <li><a href="https://www.reddit.com/r/RTLSDR/" target="_blank" class="underline">Reddit rtlsdr community</a></li>
-                </ul>
-            </div>
+        <div id="content">
+            <h1 style="margin-left:10%;margin-top:5vh;">Receiving images</h1>
+            <hr style="margin-right:10%;margin-left:5%;color: rgba(170,170,170,0.2);">
+            <p></p>
+            <p>Acquiring satellite images is a long and complicated process</p>
+            <p>Steps to receive LRPT image from METEOR-M N2:</p>
+            <ul class="numered_list" style="margin-left:10%;margin-right:10%;">
+                <li style="height:10vh;">
+                    find the next pass of the satellite over the horizon
+                    <img src="static/images/guide/1.png" alt="Orbitron program for tracking satellites" class="clickable_photo" onclick="showImage(this);">
+                </li>
+                <li>
+                    run the satellite tracking program and sdr
+                </li>
+                <li style="height:10vh;">
+                    capture raw IQ data from sdr
+                    <img src="static/images/guide/2.png" alt="SDR# for recording IQ samples" class="clickable_photo" onclick="showImage(this);">
+                </li>
+                <li>demodulate data using QPSK demodulation</li>
+                <li style="height:10vh;">decode data from raw binary file
+                    <img src="static/images/guide/3.png" alt="decoding raw binary file" class="clickable_photo" onclick="showImage(this);">
+                </li>
+                <li>combine 3 gray bw frames into colored rgb image</li>
+                <li>apply color correction to blue channel and stretch image</li>
+            </ul>
+            <p>Read more about receiving images here:</p>
+            <ul style="margin-left:10%;">
+                <li><a href="https://www.youtube.com/watch?v=cjClTnZ4Xh4" target="_blank" class="underline"> The Thought
+                    Emporium youtube video</a></li>
+                <li><a href="https://www.rtl-sdr.com/rtl-sdr-tutorial-receiving-noaa-weather-satellite-images/"
+                       target="_blank" class="underline">RTL SDR decoding guide</a></li>
+                <li><a href="https://www.instructables.com/Receiving-Images-From-Passing-Weather-Satellites-N/"
+                       target="_blank" class="underline">instructables guide</a></li>
+            </ul>
         </div>
     </div>
 </div>
+
+
+<div id="image_container">
+    <span onclick="this.parentElement.style.display='none'" id="closebtn">&times;</span>
+    <img id="expandedImg" alt="img" src="">
+    <div id="imgtext"></div>
+</div>
+<script>
+function showImage(imgs) {
+  var expandImg = document.getElementById("expandedImg");
+  var imgText = document.getElementById("imgtext");
+  expandImg.src = imgs.src;
+  imgText.innerHTML = imgs.alt;
+  expandImg.parentElement.style.display = "block";
+}
+
+
+</script>
 
 <div id="mobile">
     <h1>This page is currenty not available on mobile devices</h1>
