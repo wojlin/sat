@@ -37,10 +37,41 @@
     <div id="page_diagonal_container">
 
         <div id="gallery">
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/1.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/2.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/3.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/4.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/5.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/6.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/7.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/8.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/9.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/10.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/11.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/12.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/13.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/14.jpg'>
+            <img style="width:100%" class='gallery_slide' src='static/images/sat/15.jpg'>
             <div id="gallery_click">
                 <div class="gallery_arrow" onclick="plusDivs(-1)"><img style="width:100%;" src="static/images/left.png"
                                                                        alt="arrow"></div>
-                <div id="gallery_dots"></div>
+                <div id="gallery_dots">
+                    <span class='gallery_dot' onclick='currentDiv(1)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(2)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(3)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(4)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(5)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(6)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(7)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(8)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(9)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(10)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(11)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(12)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(13)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(14)'></span>
+                    <span class='gallery_dot' onclick='currentDiv(15)'></span>
+                </div>
                 <div class="gallery_arrow" onclick="plusDivs(1)"><img style="width:100%;" src="static/images/right.png"
                                                                       alt="arrow"></div>
             </div>
@@ -48,26 +79,10 @@
 
 
         <script>
-            var folder = "static/images/sat/";
             var count = 1;
-            var slideIndex = 0;
+            var slideIndex = 1;
 
-            $.ajax({
-                url : folder,
-                success: function (data) {
-                    $(data).find("a").attr("href", function (i, val) {
-                        if( val.match(/\.(jpe?g|png|gif)$/) ) {
-                            $("#gallery").append( "<img loading=lazy style='width:100%' class='gallery_slide' src='"+ folder + val +"'>" );
-                            $("#gallery_dots").append("<span class='gallery_dot' onclick='currentDiv("+count+")'></span>");
-                            count += 1;
-                            showDivs(slideIndex);
-                        }
-                    });
-                }
-            });
-
-
-
+            setTimeout(showDivs(1),500);
 
 
             function plusDivs(n) {
@@ -82,7 +97,7 @@
 
             function showDivs(n) {
               var i;
-              const x = document.getElementsByClassName("gallery_slide");
+              var x = document.getElementsByClassName("gallery_slide");
               var dots = document.getElementsByClassName("gallery_dot");
               if (n > x.length) {slideIndex = 1}
               if (n < 1) {slideIndex = x.length}
@@ -93,9 +108,10 @@
               for (i = 0; i < dots.length; i++) {
                 dots[i].className = dots[i].className.replace("gallery_dot_active", "");
               }
-              x[slideIndex-1].style.display = "block";
-              x[slideIndex-1].style.opacity = "1";
-              dots[slideIndex-1].className += " gallery_dot_active";
+              var number = slideIndex-1;
+              x[number].style.display = "block";
+              x[number].style.opacity = "1";
+              dots[number].className += " gallery_dot_active";
             }
 
 
@@ -103,8 +119,10 @@
 
             function carousel() {
              slideIndex+=1;
+             console.log("changing slide");
               showDivs(slideIndex);
             }
+
 
 
 
@@ -134,18 +152,18 @@
             <ul class="numered_list" style="margin-left:10%;margin-right:10%;">
                 <li style="height:10vh;">
                     find the next pass of the satellite over the horizon
-                    <img src="static/images/guide/1.png" alt="Orbitron program for tracking satellites" class="clickable_photo" onclick="showImage(this);">
+                    <img src="static/images/guide/1.jpg" alt="Orbitron program for tracking satellites" class="clickable_photo" onclick="showImage(this);">
                 </li>
                 <li>
                     run the satellite tracking program and sdr
                 </li>
                 <li style="height:10vh;">
                     capture raw IQ data from sdr
-                    <img src="static/images/guide/2.png" alt="SDR# for recording IQ samples" class="clickable_photo" onclick="showImage(this);">
+                    <img src="static/images/guide/2.jpg" alt="SDR# for recording IQ samples" class="clickable_photo" onclick="showImage(this);">
                 </li>
                 <li>demodulate data using QPSK demodulation</li>
                 <li style="height:10vh;">decode data from raw binary file
-                    <img src="static/images/guide/3.png" alt="decoding raw binary file" class="clickable_photo" onclick="showImage(this);">
+                    <img src="static/images/guide/3.jpg" alt="decoding raw binary file" class="clickable_photo" onclick="showImage(this);">
                 </li>
                 <li>combine 3 gray bw frames into colored rgb image</li>
                 <li>apply color correction to blue channel and stretch image</li>
