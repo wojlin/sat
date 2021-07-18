@@ -104,7 +104,12 @@ background: linear-gradient(90deg, rgba(15,21,23,1) 0%, rgba(0,0,0,1) 100%);
 	transition: all 0.3s ease;
 }
 
-
+#content
+{
+    width:100%;
+    overflow-y:auto;
+    height: 90vh;
+}
 
 #content p
 {
@@ -196,9 +201,22 @@ background: linear-gradient(90deg, rgba(15,21,23,1) 0%, rgba(0,0,0,1) 100%);
     text-align:center;
 }
 
+@media only screen and (max-width: 1700px) {
+  .menu_button
+  {
+    font-size:3vh !important;
+  }
+  #diagonal_content
+  {
+    width:50%;
+  }
+  #background_content
+  {
+    right:50%;
+  }
+}
 
-
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1200px) {
   #mobile
   {
     display:block;

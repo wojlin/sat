@@ -78,6 +78,12 @@ z-index:2;
 	}
 }
 
+ @keyframes spin_back {
+	 to {
+		 transform: rotateZ(-360deg);
+	}
+}
+
 @keyframes info {
   0% {
     transform: rotate(0);
