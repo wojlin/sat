@@ -1,3 +1,9 @@
+:root
+{
+    --planet_offset:20%;
+    --earth_size: 20vh;
+}
+
 .earth_cont
 {
 position: absolute;
@@ -10,10 +16,10 @@ z-index:2;
 }
 
  .earth {
-     --earth_size: 20vh;
+
 	 position: absolute;
 	 top: calc(50% - var(--earth_size) * 0.5);
-	 left: calc(50% - var(--earth_size) * 0.5);
+	 left: calc(var(--planet_offset) - var(--earth_size) * 0.5);
 	 transform-origin: center;
 }
  .earth img {
@@ -25,28 +31,32 @@ z-index:2;
 }
 .background-container-desc
 {
-    margin-left:5%;
+    margin-left:2%;
     font-size:3vh;
+    z-index:5;
+    position:absolute;
     color: rgba(255,255,255,0.2);
     background:none;
 }
  .moon-container {
 	 position: absolute;
 	 top: calc(50%);
-	 left: calc(50%);
+	 left: calc(var(--planet_offset));
 }
  .moon {
-	 animation: spin 60s linear infinite;
+	 animation: spin 150s linear infinite;
 	 background: none;
 	 width: 2vh;
 	 height: 2vh;
 	 pointer-events: none;
 	 transform-origin: 25px;
+	 z-index:-1;
+	 position:relative;
 }
  .moon img {
 	 transform: translateX(-35vh) translateY(-35vh);
 	 width: 50px;
-	 z-index:1;
+	 z-index:0;
 	 position: relative;
 }
  .earth img{
@@ -67,11 +77,7 @@ z-index:2;
 		 transform: rotateZ(360deg);
 	}
 }
- @keyframes spin_slow {
-	 to {
-		 transform: rotateZ(-360deg);
-	}
-}
+
 @keyframes info {
   0% {
     transform: rotate(0);
@@ -86,7 +92,7 @@ z-index:2;
 /* ################   info box #################### */
 .sat_info
 {
-	 background-image: linear-gradient(to bottom, rgba(10, 10, 10, 1), black);
+	 background-image: linear-gradient(to bottom, rgba(50, 50, 50, 0.9), rgba(10, 10, 10, 0.9));
 	 border-radius: 1em;
 	 color: #fff;
 	 opacity: 0;
@@ -104,6 +110,8 @@ z-index:2;
      top:10px;
      transform-origin: top left;
      transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+     font-family: 'jet';
+     box-shadow: blue 0px 0px 0px 2px inset, rgb(31, 193, 27) 3px -3px 0px -3px, rgb(31, 193, 27) 3px -3px, rgb(255, 85, 85) 6px -6px 0px -3px, rgb(255, 85, 85) 6px -6px;
 }
 .sat_info h1
 {
@@ -112,33 +120,131 @@ z-index:2;
 }
 .sat_info h1, .sat_info li
 {
-	 font-family: 'Space Mono', monospace;
 	 opacity: 0;
+
 }
 /* ############################################### */
 
 #sat_container
 {
 	 position: absolute;
-	 top: calc(50% - 25px);
-	 left: calc(50% - 25px);
+	 top: calc(50vh);
+	 left: calc(var(--planet_offset));
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+	 width:0;
+	 height:0;
+}
+
+
+/* %%%%%%%%%%%%%%%%%%%%%%%%% NOAA19 %%%%%%%%%%%%%%%%%%%%%%%%% */
+#noaa19_container {
+     --time: 110s;
+     --distance: 30vh;
+	 animation: spin var(--time) linear infinite;
+	 background: none;
+	 width: 0;
+	 height: 0;
+	 transform-origin: center;
+}
+#noaa19_info
+{
+    animation: info var(--time) infinite linear;
+    pointer-events: none;
+}
+#noaa19 .info_back{
+	 animation: textColor 10s ease infinite, info var(--time) infinite linear;;
+	 border-radius: 1em;
+	 opacity:0;
+	 width: 320px;
+	 height: 140px;
+	 z-index: 5;
+	 left:10px;
+     top:10px;
+     transform-origin: top left;
+     pointer-events: none;
+}
+#noaa19 .info_back:after {
+	 position: absolute;
+	 content: "";
+	 z-index: -1;
+	 height: 100%;
+	 width: 100%;
+	 margin: 0 auto;
+	 transform: scale(1);
+	 -webkit-filter: blur(5vw);
+	 -moz-filter: blur(5vw);
+	 -ms-filter: blur(5vw);
+	 filter: blur(5vw);
+	 background: linear-gradient(270deg, #0fffc1, #7e0fff);
+	 background-size: 200% 200%;
+	 animation: animateGlow 10s ease infinite;
 	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
 }
+#noaa19_container img
+{
+     width: 50px;
+	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
+	 z-index:6;
+	 position: relative;
+	 transform-origin: center;
+	 transform: scale(1) rotate(180deg);
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+}
+#noaa19
+{
+	 transform: translateX(var(--distance)) translateY(var(--distance));
+	 z-index:10 !important;
+	 position: relative;
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+}
+#noaa19:hover #noaa19_info
+{
+	 opacity: 1 !important;
+	 transform: initial;
+	 position: absolute;
+}
+#noaa19:active #noaa19_info
+{
+     opacity: 1;
+	 transform: initial;
+	 position: absolute;
+}
+#noaa19:hover .info_back
+{
+	 opacity: 1 !important;
+}
+#noaa19:active .info_back
+{
+     opacity: 1;
+}
+#noaa19:active #noaa19_img
+{
+     transform: scale(1.5) rotate(180deg);
+}
+#noaa19:hover #noaa19_img
+{
+	 transform: scale(1.5) rotate(180deg);
+}
+#noaa19:hover #noaa19_info h1, #noaa19:active #noaa19_info h1, #noaa19:hover #noaa19_info li, #noaa19:active #noaa19_info li {
+	 opacity: 1;
+}
+/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
 
 
 /* %%%%%%%%%%%%%%%%%%%%%%%%% NOAA18 %%%%%%%%%%%%%%%%%%%%%%%%% */
 #noaa18_container {
-     --time: 50s;
-     --distance: -20vh;
+     --time: 70s;
+     --distance: -25vh;
 	 animation: spin var(--time) linear infinite;
 	 background: none;
-	 width: 50px;
-	 height: 50px;
-	 transform-origin: 25px;
+	 width: 0;
+	 height: 0;
+	 transform-origin: center;
 }
 #noaa18_info
 {
     animation: info var(--time) infinite linear;
+    pointer-events: none;
 }
 #noaa18 .info_back{
 	 animation: textColor 10s ease infinite, info var(--time) infinite linear;;
@@ -150,6 +256,7 @@ z-index:2;
 	 left:10px;
      top:10px;
      transform-origin: top left;
+     pointer-events: none;
 }
 #noaa18 .info_back:after {
 	 position: absolute;
@@ -209,6 +316,8 @@ z-index:2;
 {
      transform: scale(1.5);
 }
+
+
 #noaa18:hover #noaa18_img
 {
 	 transform: scale(1.5);
@@ -219,32 +328,242 @@ z-index:2;
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
 
 
+/* %%%%%%%%%%%%%%%%%%%%%%%%% METEOR %%%%%%%%%%%%%%%%%%%%%%%%% */
+#meteor_container {
+     --time: 50s;
+     --distance: 21vh;
+	 animation: spin var(--time) linear infinite;
+	 background: none;
+	 width: 0;
+	 height: 0;
+	 transform-origin: center;
+}
+#meteor_info
+{
+    animation: info var(--time) infinite linear;
+    pointer-events: none;
+}
+#meteor .info_back{
+	 animation: textColor 10s ease infinite, info var(--time) infinite linear;;
+	 border-radius: 1em;
+	 opacity:0;
+	 width: 320px;
+	 height: 140px;
+	 z-index: 5;
+	 left:10px;
+     top:10px;
+     transform-origin: top left;
+     pointer-events: none;
+}
+#meteor .info_back:after {
+	 position: absolute;
+	 content: "";
+	 z-index: -1;
+	 height: 100%;
+	 width: 100%;
+	 margin: 0 auto;
+	 transform: scale(1);
+	 -webkit-filter: blur(5vw);
+	 -moz-filter: blur(5vw);
+	 -ms-filter: blur(5vw);
+	 filter: blur(5vw);
+	 background: linear-gradient(270deg, #0fffc1, #7e0fff);
+	 background-size: 200% 200%;
+	 animation: animateGlow 10s ease infinite;
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+}
+#meteor_container img
+{
+     width: 50px;
+	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
+	 z-index:6;
+	 position: relative;
+	 transform-origin: center;
+	 transform: scale(1) rotate(90deg);
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+}
+#meteor
+{
+	 transform: translateX(var(--distance)) translateY(var(--distance));
+	 z-index:10 !important;
+	 position: relative;
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+}
+#meteor:hover #meteor_info
+{
+	 opacity: 1 !important;
+	 transform: initial;
+	 position: absolute;
+}
+#meteor:active #meteor_info
+{
+     opacity: 1;
+	 transform: initial;
+	 position: absolute;
+}
+#meteor:hover .info_back
+{
+	 opacity: 1 !important;
+}
+#meteor:active .info_back
+{
+     opacity: 1;
+}
+#meteor:active #meteor_img
+{
+     transform: scale(1.5) rotate(90deg);
+}
+#meteor:hover #meteor_img
+{
+	 transform: scale(1.5) rotate(90deg);
+}
+#meteor:hover #meteor_info h1, #meteor:active #meteor_info h1, #meteor:hover #meteor_info li, #meteor:active #meteor_info li {
+	 opacity: 1;
+}
+/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
 
+
+/* %%%%%%%%%%%%%%%%%%%%%%%%% NOAA15 %%%%%%%%%%%%%%%%%%%%%%%%% */
+#noaa15_container {
+     --time: 40s;
+     --distance: -17vh;
+	 animation: spin var(--time) linear infinite;
+	 background: none;
+	 width: 0;
+	 height: 0;
+	 transform-origin: center;
+}
+#noaa15_info
+{
+    animation: info var(--time) infinite linear;
+    pointer-events: none;
+}
+#noaa15 .info_back{
+	 animation: textColor 10s ease infinite, info var(--time) infinite linear;;
+	 border-radius: 1em;
+	 opacity:0;
+	 width: 320px;
+	 height: 140px;
+	 z-index: 5;
+	 left:10px;
+     top:10px;
+     transform-origin: top left;
+     pointer-events: none;
+}
+#noaa15 .info_back:after {
+	 position: absolute;
+	 content: "";
+	 z-index: -1;
+	 height: 100%;
+	 width: 100%;
+	 margin: 0 auto;
+	 transform: scale(1);
+	 -webkit-filter: blur(5vw);
+	 -moz-filter: blur(5vw);
+	 -ms-filter: blur(5vw);
+	 filter: blur(5vw);
+	 background: linear-gradient(270deg, #0fffc1, #7e0fff);
+	 background-size: 200% 200%;
+	 animation: animateGlow 10s ease infinite;
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+}
+#noaa15_container img
+{
+     width: 50px;
+	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
+	 z-index:6;
+	 position: relative;
+	 transform-origin: center;
+	 transform: scale(1);
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+}
+#noaa15
+{
+	 transform: translateX(var(--distance)) translateY(var(--distance));
+	 z-index:10 !important;
+	 position: relative;
+	 transition: all 4s cubic-bezier(0, 1.5, 0.3, 1);
+}
+#noaa15:hover #noaa15_info
+{
+	 opacity: 1 !important;
+	 transform: initial;
+	 position: absolute;
+}
+#noaa15:active #noaa15_info
+{
+     opacity: 1;
+	 transform: initial;
+	 position: absolute;
+}
+#noaa15:hover .info_back
+{
+	 opacity: 1 !important;
+}
+#noaa15:active .info_back
+{
+     opacity: 1;
+}
+#noaa15:active #noaa15_img
+{
+     transform: scale(1.5);
+}
+#noaa15:hover #noaa15_img
+{
+	 transform: scale(1.5);
+}
+#noaa15:hover #noaa15_info h1, #noaa15:active #noaa15_info h1, #noaa15:hover #noaa15_info li, #noaa15:active #noaa15_info li {
+	 opacity: 1;
+}
+/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
+
+
+
+
+
+
+ #background
+ {
+    top:0;
+    position: absolute;
+    margin:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background: rgb(150,190,227);
+    background: radial-gradient(circle at var(--planet_offset) 50%, rgba(150,190,227,1) 7%, rgba(129,174,215,1) 9%, rgba(89,118,144,1) 13%, rgba(64,83,102,1) 17%, rgba(47,60,73,1) 24%, rgba(32,42,52,1) 39%, rgba(23,29,36,1) 56%, rgba(7,10,11,1) 74%, rgba(0,0,0,1) 100%);
+
+}
 
  .background-container
  {
     top:0;
     position: absolute;
     margin:0;
+    left:0;
     width:100%;
     height:100vh;
-    background: rgb(150,190,227);
-    background: radial-gradient(circle, rgba(150,190,227,1) 7%, rgba(129,174,215,1) 9%, rgba(89,118,144,1) 13%, rgba(64,83,102,1) 17%, rgba(47,60,73,1) 24%, rgba(32,42,52,1) 39%, rgba(23,29,36,1) 56%, rgba(7,10,11,1) 74%, rgba(0,0,0,1) 100%);
+
 
 }
  .stars
  {
+     transform:scale(1.3);
      animation: spin_slow 500s linear infinite;
 	 position: absolute;
 	 top: 0;
 	 bottom: 0;
 	 left: 0;
-	 right: 0;
+	 width:50%;
 	 display: block;
 	 z-index: 1;
 }
 
-
+ @keyframes spin_slow {
+	 to {
+		 transform: scale(1.3) rotateZ(-360deg);
+	}
+}
 
 
 
