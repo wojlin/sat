@@ -18,23 +18,24 @@
             font-family: "jet";
             src: url("static/fonts/JetBrainsMono-Regular.ttf");
         }
+
     </style>
 </head>
 
 <body>
 <div id="page_container">
     <div id="page_diagonal_container">
-
         <div class="background-container">
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
             <div id="planet">
                 <div class="earth_cont">
                     <div class="earth">
                         <img src="static/images/earth.png">
+                        <div class="earth_shadow"></div>
                     </div>
                     <div id="sat_container">
-
-
-
                         <div id="noaa19_container">
                             <div id="noaa19">
                                 <img class="sat_icon" id="noaa19_img" src="static/images/sat.png">
@@ -42,7 +43,7 @@
                                 <div class="sat_info" id="noaa19_info">
                                     <h1>NOAA19</h1>
                                     <ul>
-                                        <li>Launch: 06 Feb 2009  </li>
+                                        <li>Launch: 06 Feb 2009</li>
                                         <li>Transimssion type: APT</li>
                                         <li>Frequnecy: 137.9125 MHz MHz</li>
                                         <li>Altitude: 870 km</li>
@@ -51,7 +52,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div id="noaa18_container">
                             <div id="noaa18">
                                 <img class="sat_icon" id="noaa18_img" src="static/images/sat.png">
@@ -68,25 +68,22 @@
                                 </div>
                             </div>
                         </div>
-
-
-                         <div id="meteor_container">
+                        <div id="meteor_container">
                             <div id="meteor">
                                 <img class="sat_icon" id="meteor_img" src="static/images/meteor.png">
                                 <div class="info_back"></div>
                                 <div class="sat_info" id="meteor_info">
                                     <h1>METEOR-M N2</h1>
                                     <ul>
-                                        <li>Launch: 08 Jul 2014   </li>
+                                        <li>Launch: 08 Jul 2014</li>
                                         <li>Transimssion type: LRPT</li>
-                                        <li>Frequnecy: 137.1  MHz</li>
+                                        <li>Frequnecy: 137.1 MHz</li>
                                         <li>Altitude: 870 km</li>
                                         <li>Orbit: Sunsynchronous orbit</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
                         <div id="noaa15_container">
                             <div id="noaa15">
                                 <img class="sat_icon" id="noaa15_img" src="static/images/sat.png">
@@ -94,7 +91,7 @@
                                 <div class="sat_info" id="noaa15_info">
                                     <h1>NOAA15</h1>
                                     <ul>
-                                        <li>Launch: 13 May 1998 </li>
+                                        <li>Launch: 13 May 1998</li>
                                         <li>Transimssion type: APT</li>
                                         <li>Frequnecy: 137.6 MHz</li>
                                         <li>Altitude: 813 km</li>
@@ -103,14 +100,22 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
-
-                    <div class="moon-container">
+                    <div class="planet_container">
+                        <div class="sun">
+                            <img src="static/images/sun.png">
+                        </div>
                         <div class="moon">
                             <img src="static/images/moon.png">
+                        </div>
+                        <div class="mars">
+                            <img src="static/images/mars.png">
+                        </div>
+                        <div class="saturn">
+                            <img src="static/images/saturn.png">
+                        </div>
+                        <div class="uranus">
+                            <img src="static/images/uranus.png">
                         </div>
                     </div>
                 </div>
@@ -150,9 +155,10 @@
                 </ul>
                 <p>Read more about weather satellites here:</p>
                 <ul style="margin-left:10%;">
-                    <li> <a href="https://www.noaa.gov/"  target="_blank" class="underline">NOAA gov site</a></li>
+                    <li><a href="https://www.noaa.gov/" target="_blank" class="underline">NOAA gov site</a></li>
                     <li><a href="https://www.rtl-sdr.com/" target="_blank" class="underline">RTL SDR page</a></li>
-                    <li><a href="https://www.reddit.com/r/RTLSDR/" target="_blank" class="underline">Reddit rtlsdr community</a></li>
+                    <li><a href="https://www.reddit.com/r/RTLSDR/" target="_blank" class="underline">Reddit rtlsdr
+                        community</a></li>
                 </ul>
             </div>
         </div>

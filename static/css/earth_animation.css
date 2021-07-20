@@ -15,20 +15,8 @@ overflow: hidden;
 z-index:2;
 }
 
- .earth {
 
-	 position: absolute;
-	 top: calc(50% - var(--earth_size) * 0.5);
-	 left: calc(var(--planet_offset) - var(--earth_size) * 0.5);
-	 transform-origin: center;
-}
- .earth img {
-	 height: var(--earth_size);
-	 width: var(--earth_size);
-	 position: absolute;
-	 top: 0;
-	 left: 0;
-}
+
 .background-container-desc
 {
     margin-left:2%;
@@ -38,12 +26,119 @@ z-index:2;
     color: rgba(255,255,255,0.2);
     background:none;
 }
- .moon-container {
+
+
+ .planet_container {
 	 position: absolute;
 	 top: calc(50%);
 	 left: calc(var(--planet_offset));
 }
- .moon {
+
+/*@@@@@@@@@@@@@@@@@@@ STARTS @@@@@@@@@@@@@@@@@@@@@@@@@*/
+.star
+{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background-color: white;
+  position: fixed;
+  animation-name: particleAnimation;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  z-index:2;
+}
+
+.star::before{
+  position: absolute;
+  display: block;
+  content: "";
+  width: 100px;
+  right: 1px;
+  transform:rotate(45deg);
+  top: 0;
+  height: 1px;
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,0.4) 100%);
+}
+
+.star:nth-of-type(1) { top: 25%; animation-duration: 10s; }
+.star:nth-of-type(2) { top: 50%; animation-duration: 5s; }
+.star:nth-of-type(3) { top: 75%; animation-duration: 20s; }
+
+@keyframes particleAnimation {
+	from {
+		left: -100px;
+		top: -100px;
+	}
+	to {
+		left: calc(100% + 100px);
+		top: calc(200% + 100px);
+	}
+}
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+/*##################### EARTH #########################*/
+ .earth
+ {
+	 position: absolute;
+	 top: calc(50% - var(--earth_size) * 0.5);
+	 left: calc(var(--planet_offset) - var(--earth_size) * 0.5);
+	 transform-origin: center;
+}
+ .earth img
+ {
+	 height: var(--earth_size);
+	 width: var(--earth_size);
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 transform: rotate(0deg);
+	 animation: spin_back 280s linear infinite;
+	 border-radius: 50%;
+	 z-index:1;
+	 box-shadow: 0 0 6em 1em rgba(110, 140, 200, .6);
+
+}
+.earth_shadow
+{
+     height: var(--earth_size);
+	 width: var(--earth_size);
+	 z-index:2;
+	 border-radius: 50%;
+	 position: absolute;
+	 background: rgb(15,21,23);
+     background: linear-gradient(137deg, rgba(15,21,23,0) 0%, rgba(0,0,0,1) 64%);
+     animation: spin 100s linear infinite;
+}
+/*####################################################*/
+
+
+/*##################### SUN #########################*/
+ .sun
+ {
+	 animation: spin 5550s linear infinite;
+	 background: none;
+	 width: 1vh;
+	 height: 1vh;
+	 pointer-events: none;
+	 transform-origin: 25px;
+	 z-index:-1;
+	 position:relative;
+
+}
+.sun img
+{
+	 transform: translateX(-55vh) translateY(-65vh);
+	 width: 300px;
+	 z-index:0;
+	 position: relative;
+	 border-radius: 50%;
+	 opacity:0.7;
+}
+/*####################################################*/
+
+/*##################### MOON #########################*/
+ .moon
+ {
 	 animation: spin 150s linear infinite;
 	 background: none;
 	 width: 2vh;
@@ -53,22 +148,86 @@ z-index:2;
 	 z-index:-1;
 	 position:relative;
 }
- .moon img {
+ .moon img
+ {
 	 transform: translateX(-35vh) translateY(-35vh);
 	 width: 50px;
 	 z-index:0;
 	 position: relative;
-}
- .earth img{
 	 border-radius: 50%;
-	 box-shadow: 0 0 6em 1em rgba(110, 140, 200, .6);
-}
- .moon img
- {
-     border-radius: 50%;
 	 box-shadow: 0 0 2em 0.2em rgba(250, 250, 200, .6);
- }
+}
+/*####################################################*/
 
+/*##################### MARS #########################*/
+ .mars
+ {
+	 animation: spin 1050s linear infinite;
+	 background: none;
+	 width: 1vh;
+	 height: 1vh;
+	 pointer-events: none;
+	 transform-origin: 25px;
+	 z-index:-1;
+	 position:relative;
+}
+ .mars img
+ {
+	 transform: translateX(45vh) translateY(-35vh);
+	 width: 25px;
+	 z-index:0;
+	 position: relative;
+	 border-radius: 50%;
+	 opacity:0.5;
+	 box-shadow: 0 0 0.3em 0.2em rgba(250, 109, 0, .6);
+}
+/*####################################################*/
+
+/*##################### SATURN #########################*/
+ .saturn
+ {
+	 animation: spin 1550s linear infinite;
+	 background: none;
+	 width: 1vh;
+	 height: 1vh;
+	 pointer-events: none;
+	 transform-origin: 25px;
+	 z-index:-1;
+	 position:relative;
+}
+ .saturn img
+ {
+	 transform: translateX(50vh) translateY(-50vh);
+	 width: 25px;
+	 z-index:0;
+	 position: relative;
+	 border-radius: 50%;
+	 opacity:0.5;
+}
+/*####################################################*/
+
+/*##################### URANUS #########################*/
+ .uranus
+ {
+	 animation: spin 2550s linear infinite;
+	 background: none;
+	 width: 1vh;
+	 height: 1vh;
+	 pointer-events: none;
+	 transform-origin: 25px;
+	 z-index:-1;
+	 position:relative;
+}
+.uranus img
+{
+	 transform: translateX(65vh) translateY(-55vh);
+	 width: 15px;
+	 z-index:0;
+	 position: relative;
+	 border-radius: 50%;
+	 opacity:0.5;
+}
+/*####################################################*/
 
 
 /* ################   animation  #################### */
