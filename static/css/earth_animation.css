@@ -45,7 +45,8 @@ z-index:2;
   animation-name: particleAnimation;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  z-index:2;
+  z-index:1;
+  transform:rotate(135deg);
 }
 
 .star::before{
@@ -54,23 +55,22 @@ z-index:2;
   content: "";
   width: 100px;
   right: 1px;
-  transform:rotate(45deg);
+  z-index:1;
   top: 0;
   height: 1px;
   background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,0.4) 100%);
 }
 
-.star:nth-of-type(1) { top: 25%; animation-duration: 10s; }
-.star:nth-of-type(2) { top: 50%; animation-duration: 5s; }
-.star:nth-of-type(3) { top: 75%; animation-duration: 20s; }
+.star:nth-of-type(1) {left: 30%; top: -10%; animation-duration: 20s; }
+.star:nth-of-type(2) {left:45%; top: -20%; animation-duration: 15s; }
+.star:nth-of-type(3) {left:60%; top: -30%; animation-duration: 30s; }
 
 @keyframes particleAnimation {
 	from {
-		left: -100px;
-		top: -100px;
+
 	}
 	to {
-		left: calc(100% + 100px);
+		left: calc(-60%);
 		top: calc(200% + 100px);
 	}
 }
@@ -96,6 +96,7 @@ z-index:2;
 	 border-radius: 50%;
 	 z-index:1;
 	 box-shadow: 0 0 6em 1em rgba(110, 140, 200, .6);
+	 background: rgba(0, 0, 0, 0);
 
 }
 .earth_shadow
@@ -168,14 +169,14 @@ z-index:2;
 	 height: 1vh;
 	 pointer-events: none;
 	 transform-origin: 25px;
-	 z-index:-1;
+	 z-index:2;
 	 position:relative;
 }
  .mars img
  {
 	 transform: translateX(45vh) translateY(-35vh);
 	 width: 25px;
-	 z-index:0;
+	 z-index:2;
 	 position: relative;
 	 border-radius: 50%;
 	 opacity:0.5;
@@ -192,14 +193,14 @@ z-index:2;
 	 height: 1vh;
 	 pointer-events: none;
 	 transform-origin: 25px;
-	 z-index:-1;
+	 z-index:2;
 	 position:relative;
 }
  .saturn img
  {
 	 transform: translateX(50vh) translateY(-50vh);
 	 width: 25px;
-	 z-index:0;
+	 z-index:2;
 	 position: relative;
 	 border-radius: 50%;
 	 opacity:0.5;
@@ -215,14 +216,14 @@ z-index:2;
 	 height: 1vh;
 	 pointer-events: none;
 	 transform-origin: 25px;
-	 z-index:-1;
+	 z-index:2;
 	 position:relative;
 }
 .uranus img
 {
 	 transform: translateX(65vh) translateY(-55vh);
 	 width: 15px;
-	 z-index:0;
+	 z-index:2;
 	 position: relative;
 	 border-radius: 50%;
 	 opacity:0.5;
@@ -348,7 +349,6 @@ z-index:2;
 #noaa19_container img
 {
      width: 50px;
-	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
 	 z-index:6;
 	 position: relative;
 	 transform-origin: center;
@@ -443,7 +443,6 @@ z-index:2;
 #noaa18_container img
 {
      width: 50px;
-	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
 	 z-index:6;
 	 position: relative;
 	 transform-origin: center;
@@ -540,7 +539,6 @@ z-index:2;
 #meteor_container img
 {
      width: 50px;
-	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
 	 z-index:6;
 	 position: relative;
 	 transform-origin: center;
@@ -635,7 +633,6 @@ z-index:2;
 #noaa15_container img
 {
      width: 50px;
-	 box-shadow: 0 0 12em 1em rgba(110, 140, 200, .6);
 	 z-index:6;
 	 position: relative;
 	 transform-origin: center;
