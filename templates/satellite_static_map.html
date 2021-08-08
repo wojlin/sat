@@ -96,12 +96,16 @@
                     status.innerHTML = "<span style='color: red'>off</span>";
                     count = false;
                 }
+                else if(data == "STOP")
+                {
+                    alert("request stopped");
+                }
                 else if(data == "SUCCESS")
                 {
                     if(document.getElementById('form_auto_update_check').checked)
                     {
                         alert("SUCCESS");
-                    console.log("reqest completed!;");
+                    console.log("reqest completed!");
                      {%for i in range(satellites|length)%}
                         document.getElementById("{{satellites[i]['name']}}-img").src = "static/dynamic_images/{{satellites[i]['name']}}.png?time=" + new Date();
                      {%endfor%}
@@ -126,7 +130,6 @@
           {
             if(count && document.getElementById('form_auto_update_check').checked)
             {
-                console.log("xd");
                 t1 = performance.now();
                 status.innerHTML = "<span style='color: green'>waiting for response (" +parseFloat((t1-t0)/1000).toFixed(1)+ "s) </span>";
                 setTimeout(count_display, 500);
@@ -145,6 +148,23 @@
         {
             console.log("drawing maps stopped");
             status.innerHTML = "<span style='color: red'>off</span>";
+             var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/stop", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            var json_container = []
+            xhr.send(JSON.stringify(json_container));
+          xhr.onreadystatechange = function ()
+          {
+            if (this.readyState != 4) return;
+              if (this.status == 200)
+              {
+                var data = this.responseText;
+                if(data == "STOPPED")
+                {
+                    console.log("the request was successfully stopped");
+                }
+                }
+          }
         }
     }
     </script>
