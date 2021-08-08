@@ -13,62 +13,31 @@ satellites = []
 current_pos = [0, 0]
 satellites_objects = []
 
+drawing = False
+
 
 @app.route('/auto', methods=['GET', 'POST'])
 def auto():
-    global satellites, current_pos, satellites_objects
+    global satellites, current_pos, satellites_objects, drawing
     data = request.json
-    for x in range(len(satellites)):
-        name = satellites[x]["name"]
-        print(f'drawing map for "{name}"')
-        current_pos = read_current_pos.read_current_pos()
-        sun_resolution = float(data[x][satellites[x]["name"]]['form_sun_resolution'])
-        satellite_resolution = float(data[x][satellites[x]["name"]]['form_satellite_resolution'])
-        path_resolution = int(data[x][satellites[x]["name"]]['form_path_resolution'])
-        before_time = int(data[x][satellites[x]["name"]]['form_before_time'])
-        after_time = int(data[x][satellites[x]["name"]]['form_after_time'])
-        draw_sat = False
-        if data[x][satellites[x]["name"]]['form_satellite_area']:
-            draw_sat = True
-        draw_sun = False
-        if data[x][satellites[x]["name"]]['form_sun_area']:
-            draw_sun = True
-
-        plt = satellite_plot.satellite_map(satellites_objects[x],
-                                           current_pos,
-                                           satellite_resolution=satellite_resolution,
-                                           sun_resolution=sun_resolution,
-                                           path_resolution=path_resolution,
-                                           before_time=before_time,
-                                           after_time=after_time,
-                                           draw_sat_area=draw_sat,
-                                           draw_sun_area=draw_sun)
-        ROOT_DIR = str(Path(__file__).parent.parent.parent.as_posix())  # This is your Project Root
-        plt.savefig(ROOT_DIR + "/static/dynamic_images" + f'/{name}.png')
-        print(f'map for "{name}" was created and saved')
-        plt.clf()
-        plt.close()
-        gc.collect()
-    return "SUCCESS"
-
-@app.route('/draw', methods=['GET', 'POST'])
-def draw():
-    global satellites, current_pos, satellites_objects
-    data = request.form
-    for x in range(len(satellites)):
-        if satellites[x]["name"] == data['sat']:
-            print(f'drawing map for "{data["sat"]}"')
+    print(drawing)
+    if not drawing:
+        print("drawing maps...")
+        drawing = True
+        for x in range(len(satellites)):
+            name = satellites[x]["name"]
+            print(f'drawing map for "{name}"')
             current_pos = read_current_pos.read_current_pos()
-            sun_resolution = float(data['form_sun_resolution'])
-            satellite_resolution = float(data['form_satellite_resolution'])
-            path_resolution = int(data['form_path_resolution'])
-            before_time = int(data['form_before_time'])
-            after_time = int(data['form_after_time'])
+            sun_resolution = float(data[x][satellites[x]["name"]]['form_sun_resolution'])
+            satellite_resolution = float(data[x][satellites[x]["name"]]['form_satellite_resolution'])
+            path_resolution = int(data[x][satellites[x]["name"]]['form_path_resolution'])
+            before_time = int(data[x][satellites[x]["name"]]['form_before_time'])
+            after_time = int(data[x][satellites[x]["name"]]['form_after_time'])
             draw_sat = False
-            if 'form_satellite_area' in data:
+            if data[x][satellites[x]["name"]]['form_satellite_area']:
                 draw_sat = True
             draw_sun = False
-            if 'form_sun_area' in data:
+            if data[x][satellites[x]["name"]]['form_sun_area']:
                 draw_sun = True
 
             plt = satellite_plot.satellite_map(satellites_objects[x],
@@ -81,11 +50,55 @@ def draw():
                                                draw_sat_area=draw_sat,
                                                draw_sun_area=draw_sun)
             ROOT_DIR = str(Path(__file__).parent.parent.parent.as_posix())  # This is your Project Root
-            plt.savefig(ROOT_DIR + "/static/dynamic_images" + f'/{data["sat"]}.png')
+            plt.savefig(ROOT_DIR + "/static/dynamic_images" + f'/{name}.png')
+            print(f'map for "{name}" was created and saved')
+            plt.clf()
             plt.close()
-            print(f'map for "{data["sat"]}" was created and saved')
-            return "SUCCESS"
-    return 'ERROR'
+            gc.collect()
+        drawing = False
+        return "SUCCESS"
+    else:
+        return "WAIT"
+
+
+@app.route('/draw', methods=['GET', 'POST'])
+def draw():
+    global satellites, current_pos, satellites_objects, drawing
+    data = request.form
+    if not drawing:
+        drawing = True
+        for x in range(len(satellites)):
+            if satellites[x]["name"] == data['sat']:
+                print(f'drawing map for "{data["sat"]}"')
+                current_pos = read_current_pos.read_current_pos()
+                sun_resolution = float(data['form_sun_resolution'])
+                satellite_resolution = float(data['form_satellite_resolution'])
+                path_resolution = int(data['form_path_resolution'])
+                before_time = int(data['form_before_time'])
+                after_time = int(data['form_after_time'])
+                draw_sat = False
+                if 'form_satellite_area' in data:
+                    draw_sat = True
+                draw_sun = False
+                if 'form_sun_area' in data:
+                    draw_sun = True
+
+                plt = satellite_plot.satellite_map(satellites_objects[x],
+                                                   current_pos,
+                                                   satellite_resolution=satellite_resolution,
+                                                   sun_resolution=sun_resolution,
+                                                   path_resolution=path_resolution,
+                                                   before_time=before_time,
+                                                   after_time=after_time,
+                                                   draw_sat_area=draw_sat,
+                                                   draw_sun_area=draw_sun)
+                ROOT_DIR = str(Path(__file__).parent.parent.parent.as_posix())  # This is your Project Root
+                plt.savefig(ROOT_DIR + "/static/dynamic_images" + f'/{data["sat"]}.png')
+                plt.close()
+                print(f'map for "{data["sat"]}" was created and saved')
+                drawing = False
+                return "SUCCESS"
+    return 'WAIT'
 
 
 @app.route('/ssm')

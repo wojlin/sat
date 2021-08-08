@@ -8,7 +8,7 @@ h2
 
 #grid
 {
-    width: 80%;
+    width: 95%;
     margin:auto;
     margin-top:1vh !important;
     display: grid;
@@ -33,10 +33,14 @@ h2
 
 /* Style the form - display items horizontally */
 .form-inline {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  margin-bottom:0;
+  margin:0;
+  text-align: right;
+}
+
+.table_layout
+{
+table-layout: fixed;
+width: 100%;
 }
 
 /* Add some margins for each label */
@@ -45,11 +49,31 @@ h2
   font-size: 1.3vh !important;
 }
 
+.cell
+{
+    margin:0;
+    padding:0;
+}
 /* Style the input fields */
-.form-inline input {
+.cell input {
   vertical-align: middle;
   padding: 0.5vh;
   background-color: #fff;
+}
+
+.cell_checkbox
+{
+    width:3%;
+}
+
+.cell_number
+{
+    width:8%;
+}
+
+.cell_short
+{
+    width:15%;
 }
 
 
@@ -80,13 +104,8 @@ h2
 
 .number
 {
-    width:6%;
-    height: 0.7vh;
-}
-
-#form_after_time
-{
-    width:7% !important;
+width:80%;
+margin:auto;
 }
 
 
@@ -104,7 +123,7 @@ h2
 
 #submit
 {
-   width:20%;
+   width:100%;
   float: right;
   clear: both;
   font-size: 1.5vh !important;
@@ -182,10 +201,7 @@ h2
     background-color:#f0e0d6;
 }
 
-#form_auto_update_time
-{
-    width: 15% !important;
-}
+
 
 #auto_info
 {

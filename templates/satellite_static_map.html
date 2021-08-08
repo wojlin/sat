@@ -14,34 +14,42 @@
         next cycle</p>
     <p class="tool">leave it to zero if you want to update all maps ass soon as they will all load</p>
     <form class="form-inline" id="form_auto_update">
-        <label for="form_auto_update_time">auto update time:</label><br>
-        <input class="inline number" type="number" id="form_auto_update_time" name="form_auto_update_time" step="10"
-               value="10" min="0"><br>
-        <label for="form_auto_update">auto update:</label><br>
-        <input type="checkbox" id="form_auto_update_check" name="form_auto_update" onclick="check();"
-               value="form_auto_update">
+        <table class="table_layout" style="padding-right:15px;">
+        <tr class="row">
+            <td class="cell" style="width:25%;">
+                <label for="form_auto_update_time">auto update time:</label>
+            </td>
+            <td class="cell" style="width:15%;">
+                <input class="inline number" type="number" id="form_auto_update_time" name="form_auto_update_time" step="10" value="10" min="0">
+            </td>
+            <td class="cell" style="width:15%;">
+                <label for="form_auto_update">auto update:</label>
+            </td>
+            <td class="cell cell_checkbox">
+                <input type="checkbox" id="form_auto_update_check" name="form_auto_update" onclick="check();" Value="form_auto_update">
+            </td>
+        </tr>
+        </table>
     </form>
     <p id="auto_info">status: <span id="auto_info_span" style="color: red">off</span></p>
     <script>
-
-    function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-   async function check()
+   function check()
     {
         var count = true;
         var t0 = performance.now()
         var t1 = performance.now()
+
         var status = document.getElementById("auto_info_span");
-      if (document.getElementById('form_auto_update_check').checked)
-      {
+
+        if (document.getElementById('form_auto_update_check').checked)
+        {
+           console.log("drawing maps started");
           var time = document.getElementById("form_auto_update_time").value;
-
           status.innerHTML = "<span style='color: #d000e3'>sending request</span>";
-            await sleep(500);
+            setTimeout(() =>
+            {
 
-          var xhr = new XMLHttpRequest();
+                var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/auto", true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
 
@@ -81,33 +89,63 @@
               if (this.status == 200)
               {
                 var data = this.responseText;
-                 {%for i in range(satellites|length)%}
-                    document.getElementById("{{satellites[i]['name']}}-img").src = "static/dynamic_images/{{satellites[i]['name']}}.png?time=" + new Date();
-                 {%endfor%}
-                 count = false;
-                status.innerHTML = "<span style='color: #0097e3'>waiting for delay time to end</span>";
-                t0 = performance.now();
-                t1 = performance.now();
+                if(data == "WAIT")
+                {
+                    alert("wait until the previous request is completed!");
+                    document.getElementById('form_auto_update_check').checked = false;
+                    status.innerHTML = "<span style='color: red'>off</span>";
+                    count = false;
+                }
+                else if(data == "SUCCESS")
+                {
+                    if(document.getElementById('form_auto_update_check').checked)
+                    {
+                        alert("SUCCESS");
+                    console.log("reqest completed!;");
+                     {%for i in range(satellites|length)%}
+                        document.getElementById("{{satellites[i]['name']}}-img").src = "static/dynamic_images/{{satellites[i]['name']}}.png?time=" + new Date();
+                     {%endfor%}
+                     count = false;
+                    status.innerHTML = "<span style='color: #0097e3'>waiting for delay time to end</span>";
+                    t0 = performance.now();
+                    t1 = performance.now();
 
-                 setTimeout(check, time*1000);
+                    setTimeout(() => {  check(); }, document.getElementById("form_auto_update_time").value * 1000);
+                    }
+
+                }
+                else
+                {
+                    alert("unknown error");
+                }
+
               }
           };
-          while(count)
-          {
-            t1 = performance.now()
-            status.innerHTML = String("<span style='color: green'>waiting for response</span>  ("+String(((t1 - t0)/1000).toFixed(2))+"s)");
-            await sleep(1000);
 
+          function count_display()
+          {
+            if(count && document.getElementById('form_auto_update_check').checked)
+            {
+                console.log("xd");
+                t1 = performance.now();
+                status.innerHTML = "<span style='color: green'>waiting for response (" +parseFloat((t1-t0)/1000).toFixed(1)+ "s) </span>";
+                setTimeout(count_display, 500);
+            }
           }
 
+          setTimeout(count_display, 500);
 
 
 
-          }
-          else
-          {
+            }, 500);
+
+
+        }
+        else
+        {
+            console.log("drawing maps stopped");
             status.innerHTML = "<span style='color: red'>off</span>";
-          }
+        }
     }
     </script>
 </div>
@@ -121,37 +159,59 @@
 
             <form class="form-inline" id="{{satellites[i]['name']}}-form">
                 <input type="hidden" id="sat" name="sat" value="{{satellites[i]['name']}}">
-
-                <label for="form_satellite_area">draw satellite area:</label><br>
-                <input type="checkbox" id="form_satellite_area" name="form_satellite_area" value="NULL">
-
-                <label for="form_sun_resolution">sun area resolution:</label><br>
-                <input class="inline number" type="number" id="form_sun_resolution" name="form_sun_resolution"
-                       step="0.1" value="0.1" min="0.1" max="3">
-
-                <label for="form_before_time">time before satellite:</label><br>
-                <input class="inline number" type="number" id="form_before_time" name="form_before_time" step="60"
-                       value="0" min="0">
-
-                <label for="form_path_resolution">path resolution:</label><br>
-                <input class="inline number" type="number" id="form_path_resolution" name="form_path_resolution"
-                       step="10" value="100" min="10" max="300">
-
-                <label for="form_sun_area">draw sun area:</label><br>
-                <input type="checkbox" id="form_sun_area" name="form_sun_area" value="NULL">
-
-
-                <label for="form_satellite_resolution">satellite area resolution:</label><br>
-                <input class="inline number" type="number" id="form_satellite_resolution"
-                       name="form_satellite_resolution"
-                       step="0.1" value="0.2" min="0.1" max="1">
-
-
-                <label for="form_after_time">time after satellite </label><br>
-                <input class="inline number" type="number" id="form_after_time" name="form_after_time" step="600"
-                       value="3600" min="600"><br>
-
-                <input class="inline" id="submit" type="submit" value="draw">
+                <table class="table_layout">
+                    <tr class="row">
+                        <td class="cell cell_short">
+                            <label for="form_satellite_area">draw satellite area:</label>
+                        </td>
+                        <td class="cell cell_checkbox">
+                            <input type="checkbox" id="form_satellite_area" name="form_satellite_area" value="NULL">
+                        </td>
+                        <td class="cell">
+                            <label for="form_satellite_resolution">satellite area resolution:</label>
+                        </td>
+                        <td class="cell cell_number">
+                            <input class="inline number" type="number" id="form_satellite_resolution" name="form_satellite_resolution" step="0.1" value="0.2" min="0.1" max="1">
+                        </td>
+                        <td class="cell">
+                            <label for="form_before_time">time before satellite:</label>
+                        </td>
+                        <td class="cell cell_number">
+                            <input class="inline number" type="number" id="form_before_time" name="form_before_time" step="60" value="0" min="0">
+                        </td>
+                        <td class="cell cell_short">
+                            <label for="form_path_resolution">path resolution:</label>
+                        </td>
+                        <td class="cell cell_number">
+                            <input class="inline number" type="number" id="form_path_resolution" name="form_path_resolution" step="10" value="100" min="10" max="300">
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td class="cell cell_short">
+                            <label for="form_sun_area">draw sun area:</label>
+                        </td>
+                        <td class="cell cell_checkbox">
+                            <input type="checkbox" id="form_sun_area" name="form_sun_area" value="NULL">
+                        </td>
+                        <td class="cell">
+                            <label for="form_sun_resolution">sun area resolution:</label>
+                        </td>
+                        <td class="cell cell_number">
+                            <input class="inline number" type="number" id="form_sun_resolution" name="form_sun_resolution" step="0.1" value="0.1" min="0.1" max="3">
+                        </td>
+                        <td class="cell">
+                            <label for="form_after_time">time after satellite </label>
+                        </td>
+                        <td class="cell cell_number">
+                            <input class="inline number" type="number" id="form_after_time" name="form_after_time" step="600" value="3600" min="600">
+                        </td>
+                        <td class="cell cell_short">
+                        </td>
+                        <td class="cell number">
+                            <input class="inline" id="submit" type="submit" value="draw">
+                        </td>
+                    </tr>
+                </table>
             </form>
             <hr class="satellite_hr">
             <div class="satellite_image_container">
@@ -163,45 +223,63 @@
         </div>
         <script>
             window.addEventListener( "load", function () {
-              function sendData() {
+            function sendData()
+            {
                 const XHR = new XMLHttpRequest();
-
-                // Bind the FormData object and the form element
                 const FD = new FormData( form );
 
-                // Define what happens on successful data submission
-                XHR.addEventListener( "load", function(event) {
-                  document.getElementById("{{satellites[i]['name']}}-img").src = "static/dynamic_images/{{satellites[i]['name']}}.png?time=" + new Date();
-                  document.getElementById("{{satellites[i]['name']}}-cover").style.display = "none";
-                document.getElementById("{{satellites[i]['name']}}-loading").style.display = "none";
+
+
+
+                XHR.addEventListener("error", function( event )
+                {
+                  alert( 'ERROR' );
                 } );
 
-                // Define what happens in case of error
-                XHR.addEventListener( "error", function( event ) {
-                  alert( 'Oops! Something went wrong.' );
-                } );
+                XHR.onreadystatechange = function ()
+                  {
+                      if (this.readyState != 4) return;
+                      if (this.status == 200)
+                      {
+                        var data = this.responseText;
+                        if(data == "WAIT")
+                        {
+                            alert("wait until the previous request is completed!");
+                               document.getElementById("{{satellites[i]['name']}}-cover").style.display = "none";
+                                document.getElementById("{{satellites[i]['name']}}-loading").style.display = "none";
+                        }
+                        else if(data == "SUCCESS")
+                        {
+                            alert("SUCCESS");
+                                document.getElementById("{{satellites[i]['name']}}-img").src = "static/dynamic_images/{{satellites[i]['name']}}.png?time=" + new Date();
+                                  document.getElementById("{{satellites[i]['name']}}-cover").style.display = "none";
+                                document.getElementById("{{satellites[i]['name']}}-loading").style.display = "none";
+                        }
+                        else
+                        {
+                            alert("unknown error");
+                        }
+                      }
+                  }
 
-                // Set up our request
                 XHR.open( "POST", "/draw" );
-
-                // The data sent is what the user provided in the form
                 XHR.send( FD );
-              }
+            }
 
-              // Access the form element...
-              const form = document.getElementById("{{satellites[i]['name']}}-form");
 
-              // ...and take over its submit event.
-              form.addEventListener( "submit", function ( event ) {
+
+                const form = document.getElementById("{{satellites[i]['name']}}-form");
+
+                form.addEventListener( "submit", function ( event )
+                {
                 event.preventDefault();
                 document.getElementById("{{satellites[i]['name']}}-cover").style.display = "block";
                 document.getElementById("{{satellites[i]['name']}}-loading").style.display = "block";
                 sendData();
-              } );
+                } );
+
             } );
-
         </script>
-
     </div>
     {%endfor%}
 </div>
