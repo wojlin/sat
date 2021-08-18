@@ -29,17 +29,23 @@ def satellite_flyby_radar_update():
     data = request.json
     sats_data = []
     sats_pos = []
+    print(data)
+    used_names = []
     for item in data[1]:
         if item[1]:
             for sat in satellites_objects:
-                sats_pos.append(sat.azimut(current_pos))
-                if sat.satellite_object.name == item[0]:
+                if sat.satellite_object.name == item[0] and not any(used_name in sat.satellite_object.name for used_name in used_names):
+                    sats_pos.append([sat.satellite_object.name ,sat.azimut(current_pos)])
+                    used_names.append(sat.satellite_object.name)
                     time_now = datetime.datetime.now()
                     sat_data = sat.flyby(current_pos, time_now, time_now + datetime.timedelta(hours=int(data[0]["hours"])), int(data[0]["angle"]))
                     sats_data.append(sat_data)
 
     sats_data = [j for sub in sats_data for j in sub]
     sats_data = sorted(sats_data, key=lambda l:datetime.datetime.strptime(l[1], '%H:%M:%S   %d-%b-%Y'))
+
+    #from pprint import pprint
+    #pprint(sats_data)
 
     plt = satellite_plot.satellite_radar(sats_data, sats_pos)
     ROOT_DIR = str(Path(__file__).parent.parent.parent.as_posix())  # This is your Project Root
@@ -48,8 +54,6 @@ def satellite_flyby_radar_update():
     plt.clf()
     plt.close()
     gc.collect()
-
-    print(sats_data)
 
     print("update")
     return jsonify(sats_data)

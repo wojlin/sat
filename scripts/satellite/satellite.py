@@ -122,8 +122,8 @@ class satellite:
         time_after = datetime.datetime.strptime(time_after, '%H:%M:%S   %d-%b-%Y')
         time_after = abs(time_after - datetime.datetime.now())
 
-        print(f'{time_before}  {time_after}')
-        print(f'{time_before.total_seconds()}  {time_after.total_seconds()}')
+        #print(f'{time_before}  {time_after}')
+        #print(f'{time_before.total_seconds()}  {time_after.total_seconds()}')
 
         trajectory_list = []
         ts = load.timescale()

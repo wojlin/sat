@@ -2,6 +2,24 @@ body
 {
     overflow-y:hidden !important;
 }
+#table_content
+{
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+#sat_table
+{
+    width:100%;
+    overflow:hidden;
+}
+
+#radar_image
+{
+    width:80%;
+    display: block;
+    margin:auto;
+    margin-top:4vh;
+}
 
 #double_container
 {
@@ -73,7 +91,7 @@ body
 .fl-table thead th {
     color: #ffffff;
     background: #c26e61;
-
+    position: sticky; top: 0;
 }
 
 

@@ -37,76 +37,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-            function check()
-            {
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/sfr_update", true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                var json_container = []
-
-                var angle_value = document.getElementById("angle").value;
-                var hours_value = document.getElementById("ahead").value;
-
-                json_container.push({angle:angle_value,hours:hours_value});
-
-                var sat_checked = [];
-                {%for i in range(satellites|length)%}
-                    var new_str = [ "{{satellites[i]['name']}}",document.getElementById("{{satellites[i]['name']}}").checked];
-                    sat_checked.push(new_str);
-                {%endfor%}
-                json_container.push(sat_checked);
-
-
-
-
-                xhr.send(JSON.stringify(json_container));
-                xhr.onreadystatechange = function ()
-                {
-                    if (this.readyState != 4) return;
-                    if (this.status == 200)
-                    {
-                        var data = JSON.parse(this.responseText);
-
-                        console.log(data);
-
-                        var tbodyRef = document.getElementById('sat_table').getElementsByTagName('tbody')[0];
-
-                        tbodyRef.innerHTML = "";
-
-                        for(var i = 0; i<data.length;i++)
-                        {
-                            var newRow = tbodyRef.insertRow();
-
-
-                            var newCell = newRow.insertCell();
-                            var newText = document.createTextNode(data[i][0]);
-                            newCell.appendChild(newText);
-
-                            var newCell = newRow.insertCell();
-                            var newText = document.createTextNode(data[i][1]);
-                            newCell.appendChild(newText);
-
-                            var newCell = newRow.insertCell();
-                            var newText = document.createTextNode(data[i][2]);
-                            newCell.appendChild(newText);
-
-                            var newCell = newRow.insertCell();
-                            var newText = document.createTextNode(data[i][3]);
-                            newCell.appendChild(newText);
-
-                            var newCheckBox = document.createElement('input');
-                            newCheckBox.type = 'checkbox';
-                            newCheckBox.id = 'ptworkinfo' + i; // need unique Ids!
-
-                            var newCell = newRow.insertCell();
-                            newCell.appendChild(newCheckBox);
-
-                        }
-                    }
-                }
-            }
-            </script>
         </div>
         <div class="table-wrapper">
             <table id="sat_table" class="fl-table">
@@ -116,6 +46,7 @@
                     <th>event start</th>
                     <th>event culmination</th>
                     <th>event end</th>
+                    <th>color</th>
                     <th>draw on radar</th>
                 </tr>
                 </thead>
@@ -126,7 +57,98 @@
         </div>
     </div>
     <div id="right" class="box_container">
+        <img id="radar_image" src="{{ url_for('static',filename='sfr/images/radar_placeholder.png') }}" alt="radar"/>
     </div>
+    <script>
+
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function check()
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/sfr_update", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        var json_container = []
+
+        var angle_value = document.getElementById("angle").value;
+        var hours_value = document.getElementById("ahead").value;
+
+        json_container.push({angle:angle_value,hours:hours_value});
+
+        var sat_checked = [];
+        {%for i in range(satellites|length)%}
+            var new_str = [ "{{satellites[i]['name']}}",document.getElementById("{{satellites[i]['name']}}").checked];
+
+            sat_checked.push(new_str);
+        {%endfor%}
+        json_container.push(sat_checked);
+
+
+
+
+        xhr.send(JSON.stringify(json_container));
+        xhr.onreadystatechange = function ()
+        {
+            if (this.readyState != 4) return;
+            if (this.status == 200)
+            {
+                var data = JSON.parse(this.responseText);
+
+                console.log(data);
+
+                var tbodyRef = document.getElementById('sat_table').getElementsByTagName('tbody')[0];
+
+                tbodyRef.innerHTML = "";
+
+                for(var i = 0; i<data.length;i++)
+                {
+                    var newRow = tbodyRef.insertRow();
+
+
+                    var newCell = newRow.insertCell();
+                    var newText = document.createTextNode(data[i][0]);
+                    newCell.appendChild(newText);
+
+                    var newCell = newRow.insertCell();
+                    var newText = document.createTextNode(data[i][1]);
+                    newCell.appendChild(newText);
+
+                    var newCell = newRow.insertCell();
+                    var newText = document.createTextNode(data[i][2]);
+                    newCell.appendChild(newText);
+
+                    var newCell = newRow.insertCell();
+                    var newText = document.createTextNode(data[i][3]);
+                    newCell.appendChild(newText);
+
+                    var newColorBox = document.createElement('input');
+                    newColorBox.type = 'color';
+                    newColorBox.value = getRandomColor();
+
+                    var newCell = newRow.insertCell();
+                    newCell.appendChild(newColorBox);
+
+                    var newCheckBox = document.createElement('input');
+                    newCheckBox.type = 'checkbox';
+                    newCheckBox.checked = true;
+
+                    var newCell = newRow.insertCell();
+                    newCell.appendChild(newCheckBox);
+
+                }
+
+                document.getElementById("radar_image").src = "static/dynamic_images/radar.png?time=" + new Date();
+            }
+        }
+    }
+    </script>
 </div>
 
 {% endblock %}

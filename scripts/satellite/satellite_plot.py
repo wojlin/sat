@@ -287,9 +287,8 @@ def satellite_map(satellite,
     return plt
 
 
-def satellite_radar(sats_data, stats_pos):
-
-    trajectory = sats_data[3]
+def satellite_radar(sats_data, sats_pos):
+    from pprint import pprint
 
     ROOT_DIR = str(Path(__file__).parent.parent.parent.as_posix())  # This is your Project Root
     fig = plt.figure()
@@ -320,98 +319,26 @@ def satellite_radar(sats_data, stats_pos):
 
     plt.show()
 
-    if current_direction[1] < 0:
-        actual_elev = 90
-    else:
-        actual_elev = 90 - current_direction[1]
-
-    ax1.plot(math.radians(current_direction[0]), actual_elev, marker=".", markersize=10, c='r')
-    path = ROOT_DIR + '/static/images/satellite.png'
-    ab = AnnotationBbox(OffsetImage(plt.imread(path), 0.10),
-                        (math.radians(current_direction[0]), actual_elev), frameon=False)
-    ax1.add_artist(ab)
-
-    x_direction = [trajectory[item][2] for item in range(len(trajectory))]
-    y_direction = [trajectory[item][3] for item in range(len(trajectory))]
-
-    x_lines_list = []
-    y_lines_list = []
-
-
-
-    for item in range(len(x_direction)):
-        x_direction[item] = math.radians(x_direction[item])
-
-    for item in reversed(range(len(y_direction))):
-        if y_direction[item] < 0:
-            pass
-            # y_direction.pop(item)
-            # x_direction.pop(item)
-            # y_direction[item] = 90
-
+    for sat in sats_pos:
+        if sat[1][1] < 0:
+            sat[1][1] = 90
         else:
-            y_direction[item] = 90 - y_direction[item]
+            sat[1][1] = 90 - sat[1][1]
 
-    last_cut = 0
-    for x in range(len(x_direction) - 1):
-        if x_direction[x] < 0:
-            x_copy = x_direction
-            y_copy = y_direction
+        ax1.plot(math.radians(float(sat[1][0])), sat[1][1], marker=".", markersize=10, c='r')
+        path = ROOT_DIR + '/static/images/satellite.png'
+        ab = AnnotationBbox(OffsetImage(plt.imread(path), 0.10),
+                            (math.radians(float(sat[1][0])), sat[1][1]), frameon=False)
+        ax1.add_artist(ab)
 
-            x_lines_list.append(x_copy[last_cut:x + 1])
-            y_lines_list.append(y_copy[last_cut:x + 1])
-            last_cut = x + 1
+    for raw_path in sats_data:
+        path = raw_path[4]
+        x = []
+        y = []
+        print(path)
+        for point in path:
+            x.append(math.radians(point[0]))
+            y.append(90-point[1])
+        ax1.plot(x, y, c='r', alpha=1)
 
-    x_lines_list.append(x_direction[last_cut + 1:])
-    y_lines_list.append(y_direction[last_cut + 1:])
-
-    count = len(x_lines_list)
-
-    opacity_level = 1 / (count + 1)
-
-    if x_lines_list:
-        width = 0.0000008
-        for item in range(len(x_lines_list)):
-            if len(x_lines_list[item]) > 2:
-                if y_lines_list[item][0] != 90:
-                    y_lines_list[item].insert(0, 90)
-                    x_lines_list[item].insert(0, x_lines_list[item][0])
-
-                if x_lines_list[item][-1] != 0 and item != len(x_lines_list) - 1:
-                    y_lines_list[item].append(90)
-                    x_lines_list[item].append(x_lines_list[item][-1])
-
-            ax1.plot(x_lines_list[item], y_lines_list[item], c='r', alpha=1 - (item * opacity_level))
-
-            for inside_item in range(len(x_lines_list[item]) - 1):
-                u = -(x_lines_list[item][inside_item] - x_lines_list[item][inside_item + 1])
-                v = -(y_lines_list[item][inside_item] - y_lines_list[item][inside_item + 1])
-                length = np.sqrt(u ** 2 + v ** 2)
-                hal = hl = 1. / width * length
-                ax1.quiver(x_lines_list[item][inside_item], y_lines_list[item][inside_item], u, v, angles='xy',
-                           scale_units='xy', scale=1,
-                           headwidth=hl,
-                           headaxislength=hal,
-                           headlength=hl,
-                           width=width,
-                           color="r",
-                           alpha=1 - (item * opacity_level)
-                           )
-    else:
-        ax1.plot(x_direction, y_direction, c='r')
-
-        width = 0.0000008
-        for inside_item in range(len(x_direction) - 1):
-            u = -(x_direction[inside_item] - x_direction[inside_item + 1])
-            v = -(y_direction[inside_item] - y_direction[inside_item + 1])
-            length = np.sqrt(u ** 2 + v ** 2)
-            hal = hl = 1. / width * length
-            ax1.quiver(x_direction[inside_item], y_direction[inside_item], u, v, angles='xy', scale_units='xy',
-                       scale=1,
-                       headwidth=hl,
-                       headaxislength=hal,
-
-                       headlength=hl,
-                       width=width,
-                       color="r")
     return plt
